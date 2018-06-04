@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201806041029239_implemented rent initial model.Designer.cs">
       <DependentUpon>201806041029239_implemented rent initial model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806041042183_implemented rents initial model.cs" />
+    <Compile Include="Migrations\201806041042183_implemented rents initial model.Designer.cs">
+      <DependentUpon>201806041042183_implemented rents initial model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -380,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806041029239_implemented rent initial model.resx">
       <DependentUpon>201806041029239_implemented rent initial model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041042183_implemented rents initial model.resx">
+      <DependentUpon>201806041042183_implemented rents initial model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
