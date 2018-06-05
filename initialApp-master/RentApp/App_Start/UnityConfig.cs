@@ -3,12 +3,16 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
+using RentApp.Persistance.Repository;
+using RentApp.Persistance.UnitOfWork;
 using RentApp.Providers;
 using System;
 using System.Data.Entity;
+using System.Web.Http;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
+using Unity.Lifetime;
 
 namespace RentApp
 {
@@ -55,6 +59,18 @@ namespace RentApp
             container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
             container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(
             new InjectionConstructor(typeof(DbContext)));
+
+            container.RegisterType<DbContext, RADBContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IServicesRepository, ServicesRepository>();
+            container.RegisterType<IAppUserRepository, AppUserRepository>();
+            container.RegisterType<IBranchRepository, BranchRepository>();
+            container.RegisterType<IRentRepository, RentRepository>();
+            container.RegisterType<ITypeOfVehicleRepository, TypeOfVehicleRepository>();
+            container.RegisterType<IVehicleRepository, VehicleRepository>();
+            container.RegisterType<IUnitOfWork, RADBUnitOfWork>();
+
+            //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+
         }
     }
 }

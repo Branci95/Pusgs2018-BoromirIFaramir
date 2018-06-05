@@ -23,16 +23,16 @@ namespace RentApp.Controllers
         }
 
         // GET: api/Services
-        public IQueryable<Service> GetServices()
+        public IQueryable<Services> GetServices()
         {
             return db.Services;
         }
 
         // GET: api/Services/5
-        [ResponseType(typeof(Service))]
+        [ResponseType(typeof(Services))]
         public IHttpActionResult GetService(int id)
         {
-            Service service = db.Services.Find(id);
+            Services service = db.Services.Find(id);
             if (service == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutService(int id, Service service)
+        public IHttpActionResult PutService(int id, Services service)
         {
             if (!ModelState.IsValid)
             {
@@ -77,8 +77,8 @@ namespace RentApp.Controllers
         }
 
         // POST: api/Services
-        [ResponseType(typeof(Service))]
-        public IHttpActionResult PostService(Service service)
+        [ResponseType(typeof(Services))]
+        public IHttpActionResult PostService(Services service)
         {
             if (!ModelState.IsValid)
             {
@@ -92,10 +92,10 @@ namespace RentApp.Controllers
         }
 
         // DELETE: api/Services/5
-        [ResponseType(typeof(Service))]
+        [ResponseType(typeof(Services))]
         public IHttpActionResult DeleteService(int id)
         {
-            Service service = db.Services.Find(id);
+            Services service = db.Services.Find(id);
             if (service == null)
             {
                 return NotFound();
