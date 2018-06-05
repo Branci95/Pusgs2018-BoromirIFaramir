@@ -264,6 +264,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\TypeOfVehiclesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -283,6 +284,10 @@
     <Compile Include="Migrations\201806041042183_implemented rents initial model.cs" />
     <Compile Include="Migrations\201806041042183_implemented rents initial model.Designer.cs">
       <DependentUpon>201806041042183_implemented rents initial model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806050709425_Virtual add migration.cs" />
+    <Compile Include="Migrations\201806050709425_Virtual add migration.Designer.cs">
+      <DependentUpon>201806050709425_Virtual add migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -387,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806041042183_implemented rents initial model.resx">
       <DependentUpon>201806041042183_implemented rents initial model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806050709425_Virtual add migration.resx">
+      <DependentUpon>201806050709425_Virtual add migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
