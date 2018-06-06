@@ -54,13 +54,8 @@ namespace RentApp
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<DbContext, RADBContext>(new PerRequestLifetimeManager());
-            container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
-            container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(
-            new InjectionConstructor(typeof(DbContext)));
 
-            container.RegisterType<DbContext, RADBContext>(new HierarchicalLifetimeManager());
+            //container.RegisterType<DbContext, RADBContext>(new HierarchicalLifetimeManager());
             container.RegisterType<IServicesRepository, ServicesRepository>();
             container.RegisterType<IAppUserRepository, AppUserRepository>();
             container.RegisterType<IBranchRepository, BranchRepository>();
@@ -68,6 +63,12 @@ namespace RentApp
             container.RegisterType<ITypeOfVehicleRepository, TypeOfVehicleRepository>();
             container.RegisterType<IVehicleRepository, VehicleRepository>();
             container.RegisterType<IUnitOfWork, RADBUnitOfWork>();
+
+            container.RegisterType<DbContext, RADBContext>(new PerRequestLifetimeManager());
+            container.RegisterType<ApplicationUserManager>();
+            container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
+            container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(
+            new InjectionConstructor(typeof(DbContext)));
 
             //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 
