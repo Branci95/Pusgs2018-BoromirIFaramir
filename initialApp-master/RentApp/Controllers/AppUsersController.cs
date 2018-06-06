@@ -10,24 +10,28 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
+using RentApp.Persistance.UnitOfWork;
 
 namespace RentApp.Controllers
 {
     public class AppUsersController : ApiController
     {
-        private RADBContext db = new RADBContext();
+        private readonly IUnitOfWork unitOfWork;
 
-        // GET: api/AppUsers
-        public IQueryable<AppUser> GetAppUsers()
+        public AppUsersController(IUnitOfWork unitOfWork)
         {
-            return db.AppUsers;
+            this.unitOfWork = unitOfWork;
         }
 
-        // GET: api/AppUsers/5
+        public IEnumerable<AppUser> GetAppUsers()
+        {
+            return unitOfWork.AppUser.GetAll();
+        }
+
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetAppUser(int id)
         {
-            AppUser appUser = db.AppUsers.Find(id);
+            AppUser appUser = unitOfWork.AppUser.Get(id);
             if (appUser == null)
             {
                 return NotFound();
@@ -35,8 +39,7 @@ namespace RentApp.Controllers
 
             return Ok(appUser);
         }
-
-        // PUT: api/AppUsers/5
+        
         [ResponseType(typeof(void))]
         public IHttpActionResult PutAppUser(int id, AppUser appUser)
         {
@@ -50,11 +53,10 @@ namespace RentApp.Controllers
                 return BadRequest();
             }
 
-            db.Entry(appUser).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                unitOfWork.AppUser.Update(appUser);
+                unitOfWork.Complete();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,8 +72,7 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-        // POST: api/AppUsers
+        
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult PostAppUser(AppUser appUser)
         {
@@ -80,24 +81,23 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.AppUsers.Add(appUser);
-            db.SaveChanges();
+            unitOfWork.AppUser.Add(appUser);
+            unitOfWork.Complete();
 
             return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
         }
-
-        // DELETE: api/AppUsers/5
+        
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult DeleteAppUser(int id)
         {
-            AppUser appUser = db.AppUsers.Find(id);
+            AppUser appUser = unitOfWork.AppUser.Get(id);
             if (appUser == null)
             {
                 return NotFound();
             }
 
-            db.AppUsers.Remove(appUser);
-            db.SaveChanges();
+            unitOfWork.AppUser.Remove(appUser);
+            unitOfWork.Complete();
 
             return Ok(appUser);
         }
@@ -106,14 +106,14 @@ namespace RentApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool AppUserExists(int id)
         {
-            return db.AppUsers.Count(e => e.Id == id) > 0;
+            return unitOfWork.AppUser.Get(id) != null;
         }
     }
 }

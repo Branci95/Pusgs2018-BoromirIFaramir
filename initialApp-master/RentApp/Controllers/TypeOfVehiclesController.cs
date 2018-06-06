@@ -10,24 +10,28 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
+using RentApp.Persistance.UnitOfWork;
 
 namespace RentApp.Controllers
 {
     public class TypeOfVehiclesController : ApiController
     {
-        private RADBContext db = new RADBContext();
+        private readonly IUnitOfWork unitOfWork;
 
-        // GET: api/TypeOfVehicles
-        public IQueryable<TypeOfVehicle> GetTypeOfVehicles()
+        public TypeOfVehiclesController(IUnitOfWork unitOfWork)
         {
-            return db.TypeOfVehicles;
+            this.unitOfWork = unitOfWork;
         }
 
-        // GET: api/TypeOfVehicles/5
+        public IEnumerable<TypeOfVehicle> GetTypeOfVehicles()
+        {
+            return unitOfWork.TypeOfVehicle.GetAll();
+        }
+
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult GetTypeOfVehicle(int id)
         {
-            TypeOfVehicle typeOfVehicle = db.TypeOfVehicles.Find(id);
+            TypeOfVehicle typeOfVehicle = unitOfWork.TypeOfVehicle.Get(id);
             if (typeOfVehicle == null)
             {
                 return NotFound();
@@ -50,11 +54,10 @@ namespace RentApp.Controllers
                 return BadRequest();
             }
 
-            db.Entry(typeOfVehicle).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                unitOfWork.TypeOfVehicle.Update(typeOfVehicle);
+                unitOfWork.Complete();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,8 +83,8 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.TypeOfVehicles.Add(typeOfVehicle);
-            db.SaveChanges();
+            unitOfWork.TypeOfVehicle.Add(typeOfVehicle);
+            unitOfWork.Complete();
 
             return CreatedAtRoute("DefaultApi", new { id = typeOfVehicle.Id }, typeOfVehicle);
         }
@@ -90,14 +93,14 @@ namespace RentApp.Controllers
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult DeleteTypeOfVehicle(int id)
         {
-            TypeOfVehicle typeOfVehicle = db.TypeOfVehicles.Find(id);
+            TypeOfVehicle typeOfVehicle = unitOfWork.TypeOfVehicle.Get(id);
             if (typeOfVehicle == null)
             {
                 return NotFound();
             }
 
-            db.TypeOfVehicles.Remove(typeOfVehicle);
-            db.SaveChanges();
+            unitOfWork.TypeOfVehicle.Remove(typeOfVehicle);
+            unitOfWork.Complete();
 
             return Ok(typeOfVehicle);
         }
@@ -106,14 +109,14 @@ namespace RentApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool TypeOfVehicleExists(int id)
         {
-            return db.TypeOfVehicles.Count(e => e.Id == id) > 0;
+            return unitOfWork.Services.Get(id) != null;
         }
     }
 }
