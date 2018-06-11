@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace RentApp.Hubs
 {
+    [HubName("notifications")]
     public class NotificationsHub : Hub
     {
+        //private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext
+
         public void Hello()
         {
             Clients.All.hello();

@@ -28,6 +28,6 @@ export class RegistrationServiceService {
 
   postUserMethod(newMember): Observable<any> {
     console.log(newMember)
-    return this.httpClient.post("https://localhost:51680/api/Account/Register", newMember)
+    return this.httpClient.post("http://localhost:51680/api/Account/Register", newMember)
   }
 }
