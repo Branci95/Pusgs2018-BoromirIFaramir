@@ -1,0 +1,81 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+        <div class="row">
+          <h1>Sign Up</h1>
+        </div>
+
+        <div class="row">
+          <p>Please fill in this form to create an account.</p>
+        </div>
+
+        <div class="row">
+          <div class="col col-lg-4">
+            <hr>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" class="form-control" name="fullName" required minlength="5" maxlength="42" ngModel #fullName="ngModel">
+          <div *ngIf="fullName.errors && (fullName.dirty || fullName.touched)" class="alert alert-danger">
+            <div [hidden]="!fullName.errors.required">
+              Full name is required!
+            </div>
+            <div [hidden]="!fullName.errors.minlength">
+              Full name must be at least 5 characters long.
+            </div>
+            <div [hidden]="!fullName.errors.maxlength">
+              Full name cannot be more than 42 characters long.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="email" ngModel required #email="ngModel"
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <div *ngIf="email.errors && (email.dirty || email.touched)"
+           class="alert alert-danger">  
+            <div [hidden]="!email.errors.required">
+              Email is required!
+            </div>
+            <div [hidden]="!email.errors.pattern">
+              Email form is invalid (example jondoe@gmail.com)
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" ngModel required minlength="7" maxlength="42" #password="ngModel">
+          <div *ngIf="password.errors && (password.dirty || password.touched)"
+           class="alert alert-danger">  
+            <div [hidden]="!password.errors.required">
+              Password is required!
+            </div>
+            <div [hidden]="!password.errors.minlength">
+              Password min length is 7 characters.
+            </div>
+            <div [hidden]="!password.errors.maxlength">
+              Password max length is 42 characters.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="repeatedPassword">Repeat Password</label>
+          <input type="password" class="form-control" name="repeatedPassword" ngModel required #repeatedPassword="ngModel">
+          <div *ngIf="(repeatedPassword.dirty || repeatedPassword.touched)"
+           class="alert alert-danger">  
+            <div [hidden]="password.value == repeatedPassword.value">
+              Password doesn't match
+            </div>
+          </div>
+        </div>
+
+        <br>
+          <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
+      </div>
+  </div>
+</form>

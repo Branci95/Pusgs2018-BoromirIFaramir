@@ -1,0 +1,76 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-horizontal">
+  <fieldset>
+  
+  <!-- Form Name -->
+  <legend>Add Service</legend>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Service Name:</label>  
+    <div class="col-md-4">
+    <input id="serviceName" name="serviceName" type="text" placeholder="" class="form-control input-md" ngModel required #serviceName="ngModel">      
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="serviceName.errors && (serviceName.dirty || serviceName.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!serviceName.errors.required">
+            ServiceName is required!
+          </div>
+          <div [hidden]="!serviceName.errors.pattern">
+            ServiceName form is invalid
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- File Button --> 
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Logo:</label>
+    <div class="col-md-4">
+      <input id="logo" name="logo" class="input-file" type="file" ngModel #logo="ngModel">
+    </div>
+  </div>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">E-mail:</label>  
+    <div class="col-md-4">
+    <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ngModel required #email="ngModel">      
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="email.errors && (email.dirty || email.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!email.errors.required">
+            Email is required!
+          </div>
+          <div [hidden]="!email.errors.pattern">
+            Email form is invalid (example jondoe@gmail.com)
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Description:</label>
+    <div class="col-md-4">                     
+      <textarea class="form-control" id="description" name="description" ngModel  #description="ngModel"></textarea>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="addServiceButton"></label>
+    <div class="col-md-4">
+      <button type="submit" id="addServiceButton" name="addServiceButton" class="btn btn-success" [disabled]="!f.valid">Add Service</button>
+    </div>
+  </div>
+  
+  </fieldset>
+  </form>

@@ -1,0 +1,93 @@
+
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <fieldset>
+  
+  <!-- Form Name -->
+  <legend>Add branch:</legend>
+  
+  <!-- File Button --> 
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="filebutton">Picture</label>
+    <div class="col-md-4">
+      <input id="filebutton" name="filebutton" class="input-file" type="file">
+    </div>
+  </div>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Adress:</label>  
+    <div class="col-md-4">
+    <input id="adress" name="adress" type="text" placeholder="" class="form-control input-md" ngModel required #adress="ngModel">    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="adress.errors && (adress.dirty || adress.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!adress.errors.required">
+            Adress is required!
+          </div>
+          <div [hidden]="!adress.errors.pattern">
+            Adress form is invalid
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Latitude:</label>  
+    <div class="col-md-4">
+    <input id="latitude" name="latitude" type="text" placeholder="" class="form-control input-md" ngModel required #latitude="ngModel">   
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="latitude.errors && (latitude.dirty || latitude.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!latitude.errors.required">
+            Latitude is required!
+          </div>
+          <div [hidden]="!latitude.errors.pattern">
+            Latitude form is invalid
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Longitude:</label>  
+    <div class="col-md-4">
+    <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md" ngModel required #longitude="ngModel">   
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="longitude.errors && (longitude.dirty || longitude.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!longitude.errors.required">
+            Longitude is required!
+          </div>
+          <div [hidden]="!longitude.errors.pattern">
+            Longitude form is invalid
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton"></label>
+    <div class="col-md-4">
+      <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid">Add</button>
+    </div>
+  </div>
+  
+  </fieldset>
+  </form>
+  
+  
