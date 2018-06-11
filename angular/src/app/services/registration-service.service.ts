@@ -26,7 +26,8 @@ export class RegistrationServiceService {
     return Observable.throw(errorMessage);
   }
 
-  postMethodDemo(newMember): Observable<any> {
-    return this.httpClient.post("https://jsonplaceholder.typicode.com/posts", newMember)
+  postUserMethod(newMember): Observable<any> {
+    console.log(newMember)
+    return this.httpClient.post("https://localhost:51680/api/Account/Register", newMember)
   }
 }
