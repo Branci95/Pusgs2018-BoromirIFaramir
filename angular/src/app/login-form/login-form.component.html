@@ -14,8 +14,7 @@
               <div class="col col-lg-4">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input id="Email" type="text" class="form-control" name="Email" placeholder="Email" ngModel required #Email="ngModel"
-                  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                  <input id="Email" type="text" class="form-control" name="Email" placeholder="Email" ngModel required #Email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                 </div>
               </div>
             </div>
@@ -40,16 +39,20 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="Password.errors && (Password.dirty || Password.touched)"
-           class="alert alert-danger">  
-              <div [hidden]="!Password.errors.required">
-                Password is required!
-              </div>
-              <div [hidden]="!Password.errors.minlength">
-                Password min length is 7 characters.
-              </div>
-              <div [hidden]="!Password.errors.maxlength">
-                Password max length is 42 characters.
+            <div class="row">
+              <div class="col col-lg-4">
+                  <div *ngIf="Password.errors && (Password.dirty || Password.touched)"
+                  class="alert alert-danger">  
+                     <div [hidden]="!Password.errors.required">
+                       Password is required!
+                     </div>
+                     <div [hidden]="!Password.errors.minlength">
+                       Password min length is 7 characters.
+                     </div>
+                     <div [hidden]="!Password.errors.maxlength">
+                       Password max length is 42 characters.
+                     </div>
+                   </div>
               </div>
             </div>
             <br>

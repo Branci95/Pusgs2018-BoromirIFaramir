@@ -17,6 +17,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
 import { ClockComponent } from './clock/clock.component';
 import { SignalRService } from 'src/app/services/signalR.service';
+import { HomeRegularComponent } from './home-regular/home-regular.component';
 
 const Routes=[
   {
@@ -26,6 +27,10 @@ const Routes=[
   {
     path: "login",
     component: LoginFormComponent
+  },  
+  {
+    path: "homeRegular",
+    component: HomeRegularComponent
   }
 ]
 
@@ -38,7 +43,8 @@ const Routes=[
     NavbarComponent,
     RegisterFormComponent,
     VehicleComponent,
-    ClockComponent
+    ClockComponent,
+    HomeRegularComponent
   ],
   imports: [
     BrowserModule,

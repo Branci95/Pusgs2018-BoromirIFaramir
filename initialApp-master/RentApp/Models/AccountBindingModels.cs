@@ -35,15 +35,19 @@ namespace RentApp.Models
     public class RegisterBindingModel
     {
         [Required]
+        [DataType(DataType.Text)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
         [Display(Name = "DateOfBirth")]
+        [DataType(DataType.DateTime)]
         public DateTime? DateOfBirth { get; set; }
 
         [Required]

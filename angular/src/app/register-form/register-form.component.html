@@ -47,6 +47,16 @@
         </div>
 
         <div class="form-group">
+            <label for="DateOfBirth">Birthday</label>
+            <input type="date" name="DateOfBirth" class="form-control" required length="10" ngModel #DateOfBirth="ngModel">
+            <div *ngIf="DateOfBirth.errors && (DateOfBirth.dirty || DateOfBirth.touched)" class="alert alert-danger">
+              <div [hidden]="!DateOfBirth.errors.required">
+                Birthday is required!
+              </div>
+            </div>
+        </div>
+
+        <div class="form-group">
           <label for="password">Password</label>
           <input type="password" class="form-control" name="Password" ngModel required minlength="7" maxlength="42" #Password="ngModel">
           <div *ngIf="Password.errors && (Password.dirty || Password.touched)"
@@ -75,7 +85,7 @@
         </div>
 
         <br>
-          <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
+          <button type="submit" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
       </div>
   </div>
 </form>
