@@ -17,15 +17,15 @@
 
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" class="form-control" name="fullName" required minlength="5" maxlength="42" ngModel #fullName="ngModel">
-          <div *ngIf="fullName.errors && (fullName.dirty || fullName.touched)" class="alert alert-danger">
-            <div [hidden]="!fullName.errors.required">
+          <input type="text" class="form-control" name="FullName" required minlength="5" maxlength="42" ngModel #FullName="ngModel">
+          <div *ngIf="FullName.errors && (FullName.dirty || FullName.touched)" class="alert alert-danger">
+            <div [hidden]="!FullName.errors.required">
               Full name is required!
             </div>
-            <div [hidden]="!fullName.errors.minlength">
+            <div [hidden]="!FullName.errors.minlength">
               Full name must be at least 5 characters long.
             </div>
-            <div [hidden]="!fullName.errors.maxlength">
+            <div [hidden]="!FullName.errors.maxlength">
               Full name cannot be more than 42 characters long.
             </div>
           </div>
@@ -33,14 +33,14 @@
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" ngModel required #email="ngModel"
+          <input type="text" class="form-control" name="Email" ngModel required #Email="ngModel"
           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-          <div *ngIf="email.errors && (email.dirty || email.touched)"
+          <div *ngIf="Email.errors && (Email.dirty || Email.touched)"
            class="alert alert-danger">  
-            <div [hidden]="!email.errors.required">
+            <div [hidden]="!Email.errors.required">
               Email is required!
             </div>
-            <div [hidden]="!email.errors.pattern">
+            <div [hidden]="!Email.errors.pattern">
               Email form is invalid (example jondoe@gmail.com)
             </div>
           </div>
@@ -48,27 +48,27 @@
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" ngModel required minlength="7" maxlength="42" #password="ngModel">
-          <div *ngIf="password.errors && (password.dirty || password.touched)"
+          <input type="password" class="form-control" name="Password" ngModel required minlength="7" maxlength="42" #Password="ngModel">
+          <div *ngIf="Password.errors && (Password.dirty || Password.touched)"
            class="alert alert-danger">  
-            <div [hidden]="!password.errors.required">
+            <div [hidden]="!Password.errors.required">
               Password is required!
             </div>
-            <div [hidden]="!password.errors.minlength">
+            <div [hidden]="!Password.errors.minlength">
               Password min length is 7 characters.
             </div>
-            <div [hidden]="!password.errors.maxlength">
+            <div [hidden]="!Password.errors.maxlength">
               Password max length is 42 characters.
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="repeatedPassword">Repeat Password</label>
-          <input type="password" class="form-control" name="repeatedPassword" ngModel required #repeatedPassword="ngModel">
-          <div *ngIf="(repeatedPassword.dirty || repeatedPassword.touched)"
+          <label for="ConfirmPassword">Repeat Password</label>
+          <input type="password" class="form-control" name="ConfirmPassword" ngModel required #ConfirmPassword="ngModel">
+          <div *ngIf="(ConfirmPassword.dirty || ConfirmPassword.touched)"
            class="alert alert-danger">  
-            <div [hidden]="password.value == repeatedPassword.value">
+            <div [hidden]="Password.value == ConfirmPassword.value">
               Password doesn't match
             </div>
           </div>

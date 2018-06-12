@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationServiceService {
+export class SignupServiceService {
 
   constructor(private http: Http, private httpClient: HttpClient) { }
 
@@ -26,8 +26,8 @@ export class RegistrationServiceService {
     return Observable.throw(errorMessage);
   }
 
-  postUserMethod(newMember): Observable<any> {
-    console.log(newMember)
-    return this.httpClient.post("http://localhost:51680/api/Account/Register" ,  newMember)
+  regUser(newUser): Observable<any>{
+    
+    return this.httpClient.post('http://localhost:51680/api/Account/Register', newUser);
   }
 }

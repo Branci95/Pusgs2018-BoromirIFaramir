@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { RegistrationServiceService } from 'src/app/services/registration-service.service';
+import { SignupServiceService } from 'src/app/services/signup-service.service'
 import { Users } from '../models/User.model'
 import { error } from 'selenium-webdriver';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-register-form',
@@ -13,21 +14,22 @@ export class RegisterFormComponent implements OnInit {
 
   isValid : Boolean;
 
-  constructor(private registrationServiceService : RegistrationServiceService) { };
+  constructor(private signupServiceService : SignupServiceService) { };
 
   ngOnInit() {
   }
 
   onSubmit(user: Users) {
     console.log(user);
-    this.registrationServiceService.postUserMethod(user)
+    this.signupServiceService.regUser(user)
     .subscribe(
       data=> {
         alert("You have been successfully registred!");
       },
-      error => {
-        alert("User already exists!");
-      })
+    error=>{
+      console.log(error);
+      alert("Fail !");
+    })
   }
 
 }
