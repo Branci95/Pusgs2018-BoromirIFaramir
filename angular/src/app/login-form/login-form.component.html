@@ -9,24 +9,24 @@
               </div> 
             </div>
           </div>
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
             <div class="row">
               <div class="col col-lg-4">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input id="email" type="text" class="form-control" name="email" placeholder="Email" ngModel required #email="ngModel"
+                  <input id="Email" type="text" class="form-control" name="Email" placeholder="Email" ngModel required #Email="ngModel"
                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col col-lg-4">
-                <div *ngIf="email.errors && (email.dirty || email.touched)"
+                <div *ngIf="Email.errors && (Email.dirty || Email.touched)"
                       class="alert alert-danger">  
-                    <div [hidden]="!email.errors.required">
+                    <div [hidden]="!Email.errors.required">
                       Email is required!
                     </div>
-                    <div [hidden]="!email.errors.pattern">
+                    <div [hidden]="!Email.errors.pattern">
                       Email form is invalid (example jondoe@gmail.com)
                     </div>
                 </div>
@@ -36,19 +36,19 @@
               <div class="col col-lg-4"> 
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input id="password" type="password" class="form-control" name="password" placeholder="Password" ngModel required minlength="7" maxlength="42" #password="ngModel">
+                  <input id="Password" type="password" class="form-control" name="Password" placeholder="Password" ngModel required minlength="7" maxlength="42" #Password="ngModel">
                 </div>
               </div>
             </div>
-            <div *ngIf="password.errors && (password.dirty || password.touched)"
+            <div *ngIf="Password.errors && (Password.dirty || Password.touched)"
            class="alert alert-danger">  
-              <div [hidden]="!password.errors.required">
+              <div [hidden]="!Password.errors.required">
                 Password is required!
               </div>
-              <div [hidden]="!password.errors.minlength">
+              <div [hidden]="!Password.errors.minlength">
                 Password min length is 7 characters.
               </div>
-              <div [hidden]="!password.errors.maxlength">
+              <div [hidden]="!Password.errors.maxlength">
                 Password max length is 42 characters.
               </div>
             </div>
