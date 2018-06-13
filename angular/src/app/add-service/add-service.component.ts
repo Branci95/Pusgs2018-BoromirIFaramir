@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AddServiceService } from 'src/app/services/add-service.service';
+
+import { Services } from '../models/Services.model'
+import { error } from 'selenium-webdriver';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-add-service',
@@ -8,13 +13,22 @@ import { NgForm } from '@angular/forms';
 })
 export class AddServiceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private addServiceService : AddServiceService) { }
 
   ngOnInit() {
   }
 
-  onSubmit(f: NgForm) {
-    console.log(f.value.serviceName, f.value.email,f.value.description);
+  onSubmit(service: Services) {
+    debugger
+    console.log(service);
+    this.addServiceService.postService(service)
+    .subscribe(
+      data=> {
+        alert("You have been successfully add service!");
+      },
+    error=>{
+      console.log(error);
+      alert("Fail !");
+    })
   }
-
 }

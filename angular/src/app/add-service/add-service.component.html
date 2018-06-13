@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-horizontal">
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="form-horizontal">
   <fieldset>
   
   <!-- Form Name -->
@@ -8,19 +8,19 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Service Name:</label>  
     <div class="col-md-4">
-    <input id="serviceName" name="serviceName" type="text" placeholder="" class="form-control input-md" ngModel required #serviceName="ngModel">      
+    <input id="Name" name="Name" type="text" placeholder="" class="form-control input-md" ngModel required #Name="ngModel">      
     </div>
   </div>
 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
-      <div *ngIf="serviceName.errors && (serviceName.dirty || serviceName.touched)"
+      <div *ngIf="Name.errors && (Name.dirty || Name.touched)"
             class="alert alert-danger">  
-          <div [hidden]="!serviceName.errors.required">
-            ServiceName is required!
+          <div [hidden]="!Name.errors.required">
+            Name is required!
           </div>
-          <div [hidden]="!serviceName.errors.pattern">
-            ServiceName form is invalid
+          <div [hidden]="!Name.errors.pattern">
+            Name form is invalid
           </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Logo:</label>
     <div class="col-md-4">
-      <input id="logo" name="logo" class="input-file" type="file" ngModel #logo="ngModel">
+      <input id="Logo" name="Logo" class="input-file" type="file" ngModel #Logo="ngModel">
     </div>
   </div>
   
@@ -38,18 +38,18 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">E-mail:</label>  
     <div class="col-md-4">
-    <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ngModel required #email="ngModel">      
+    <input id="Email" name="Email" type="text" placeholder="" class="form-control input-md" ngModel required #Email="ngModel">      
     </div>
   </div>
 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
-      <div *ngIf="email.errors && (email.dirty || email.touched)"
+      <div *ngIf="Email.errors && (Email.dirty || Email.touched)"
             class="alert alert-danger">  
-          <div [hidden]="!email.errors.required">
+          <div [hidden]="!Email.errors.required">
             Email is required!
           </div>
-          <div [hidden]="!email.errors.pattern">
+          <div [hidden]="!Email.errors.pattern">
             Email form is invalid (example jondoe@gmail.com)
           </div>
       </div>
@@ -60,7 +60,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Description:</label>
     <div class="col-md-4">                     
-      <textarea class="form-control" id="description" name="description" ngModel  #description="ngModel"></textarea>
+      <textarea class="form-control" id="Description" name="Description" ngModel  #Description="ngModel"></textarea>
     </div>
   </div>
   
@@ -68,7 +68,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="addServiceButton"></label>
     <div class="col-md-4">
-      <button type="submit" id="addServiceButton" name="addServiceButton" class="btn btn-success" [disabled]="!f.valid">Add Service</button>
+      <button type="submit" id="addServiceButton" name="addServiceButton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
   </div>
   

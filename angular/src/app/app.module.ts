@@ -31,6 +31,10 @@ const Routes=[
   {
     path: "homeRegular",
     component: HomeRegularComponent
+  },
+  {
+    path: "addService",
+    component: AddServiceComponent
   }
 ]
 
