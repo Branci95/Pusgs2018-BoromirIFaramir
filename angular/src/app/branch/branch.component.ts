@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AddBranchService } from 'src/app/services/add-branch.service';
+
+import { Branch } from '../models/Branch.model'
+import { error } from 'selenium-webdriver';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-branch',
@@ -8,12 +13,22 @@ import { NgForm } from '@angular/forms';
 })
 export class BranchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private addBranchService : AddBranchService) { }
 
   ngOnInit() {
   }
 
-  onSubmit(f: NgForm) {
-    console.log(f.value.adress, f.value.latitude,f.value.longitude);
+  onSubmit(branch: Branch) {
+    debugger
+    console.log(branch);
+    this.addBranchService.postBranch(branch)
+    .subscribe(
+      data=> {
+        alert("You have been successfully add branch!");
+      },
+    error=>{
+      console.log(error);
+      alert("Fail !");
+    })
   }
 }

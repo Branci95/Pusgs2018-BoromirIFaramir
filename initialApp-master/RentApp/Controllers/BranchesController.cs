@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
+using RentApp.Models;
 
 namespace RentApp.Controllers
 {
@@ -74,17 +75,43 @@ namespace RentApp.Controllers
         }
         
         [ResponseType(typeof(Branch))]
-        public IHttpActionResult PostBranch(Branch branch)
+        public IHttpActionResult PostBranch(BranchBindingModel branch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unitOfWork.Branch.Add(branch);
+            Branch bra = new Branch() { Address = branch.Adress, Latitude = branch.Latitude, Logo = branch.Logo, Longitude = branch.Longitude };
+            Services ser = new Services();
+
+            using (var db = new RADBContext())
+            {
+                ser = db.Services.Where(c => c.Name.Equals(branch.ServerName)).FirstOrDefault();
+            }
+
+            if(ser != null)
+            {
+                ser.Branches.Add(bra);
+            }
+            else
+            {
+                return null;
+            }
+
+            using (var db = new RADBContext())
+            {
+                db.Entry(ser).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            //na branch ne mapira server id, popraviti to, isti fazon kao ovo gore
+
+            
+            unitOfWork.Branch.Add(bra);
             unitOfWork.Complete();
 
-            return CreatedAtRoute("DefaultApi", new { id = branch.Id }, branch);
+            return CreatedAtRoute("DefaultApi", new { id = bra.Id }, branch);
         }
         
         [ResponseType(typeof(Branch))]

@@ -1,15 +1,15 @@
 
-<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
   <fieldset>
   
   <!-- Form Name -->
-  <legend>Add branch:</legend>
+  <legend>Add Branch</legend>
   
   <!-- File Button --> 
   <div class="form-group">
     <label class="col-md-4 control-label" for="filebutton">Picture</label>
     <div class="col-md-4">
-      <input id="filebutton" name="filebutton" class="input-file" type="file">
+      <input id="Logo" name="Logo" class="input-file" type="file" ngModel #Logo="ngModel">
     </div>
   </div>
   
@@ -17,19 +17,19 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Adress:</label>  
     <div class="col-md-4">
-    <input id="adress" name="adress" type="text" placeholder="" class="form-control input-md" ngModel required #adress="ngModel">    
+    <input id="Adress" name="Adress" type="text" placeholder="" class="form-control input-md" ngModel required #Adress="ngModel">    
     </div>
   </div>
   
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
-      <div *ngIf="adress.errors && (adress.dirty || adress.touched)"
+      <div *ngIf="Adress.errors && (Adress.dirty || Adress.touched)"
             class="alert alert-danger">  
-          <div [hidden]="!adress.errors.required">
+          <div [hidden]="!Adress.errors.required">
             Adress is required!
           </div>
-          <div [hidden]="!adress.errors.pattern">
-            Adress form is invalid
+          <div [hidden]="!Adress.errors.pattern">
+            Adress form is invalid!
           </div>
       </div>
     </div>
@@ -39,19 +39,19 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Latitude:</label>  
     <div class="col-md-4">
-    <input id="latitude" name="latitude" type="text" placeholder="" class="form-control input-md" ngModel required #latitude="ngModel">   
+    <input id="Latitude" name="Latitude" type="number" placeholder="" class="form-control input-md" ngModel required #Latitude="ngModel">   
     </div>
   </div>
   
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
-      <div *ngIf="latitude.errors && (latitude.dirty || latitude.touched)"
+      <div *ngIf="Latitude.errors && (Latitude.dirty || Latitude.touched)"
             class="alert alert-danger">  
-          <div [hidden]="!latitude.errors.required">
+          <div [hidden]="!Latitude.errors.required">
             Latitude is required!
           </div>
-          <div [hidden]="!latitude.errors.pattern">
-            Latitude form is invalid
+          <div [hidden]="!Latitude.errors.pattern">
+            Latitude form is invalid!
           </div>
       </div>
     </div>
@@ -61,19 +61,40 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Longitude:</label>  
     <div class="col-md-4">
-    <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md" ngModel required #longitude="ngModel">   
+    <input id="Longitude" name="Longitude" type="number" placeholder="" class="form-control input-md" ngModel required #Longitude="ngModel">   
     </div>
   </div>
   
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
-      <div *ngIf="longitude.errors && (longitude.dirty || longitude.touched)"
+      <div *ngIf="Longitude.errors && (Longitude.dirty || Longitude.touched)"
             class="alert alert-danger">  
-          <div [hidden]="!longitude.errors.required">
+          <div [hidden]="!Longitude.errors.required">
             Longitude is required!
           </div>
-          <div [hidden]="!longitude.errors.pattern">
-            Longitude form is invalid
+          <div [hidden]="!Longitude.errors.pattern">
+            Longitude form is invalid!
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Server name:</label>  
+    <div class="col-md-4">
+    <input id="ServerName" name="ServerName" type="text" placeholder="" class="form-control input-md" ngModel required #ServerName="ngModel">    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="ServerName.errors && (ServerName.dirty || ServerName.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!ServerName.errors.required">
+            Server name is required!
+          </div>
+          <div [hidden]="!ServerName.errors.pattern">
+            Server name form is invalid!
           </div>
       </div>
     </div>
@@ -83,7 +104,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="singlebutton"></label>
     <div class="col-md-4">
-      <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid">Add</button>
+      <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
   </div>
   

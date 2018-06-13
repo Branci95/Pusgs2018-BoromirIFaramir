@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable({
   providedIn: 'root'
 })
-export class AddServiceService {
+export class AddBranchService {
 
   constructor(private http: Http, private httpClient: HttpClient) { }
   
@@ -22,7 +22,7 @@ export class AddServiceService {
       return Observable.throw(errorMessage);
     }
 
-    postService(newService) : Observable<any>{
-      return this.httpClient.post('http://localhost:51680/api/Services', newService);
+    postBranch(newBranch) : Observable<any>{
+      return this.httpClient.post('http://localhost:51680/api/Branches', newBranch);
     }
 }

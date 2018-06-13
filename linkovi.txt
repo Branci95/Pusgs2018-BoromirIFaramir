@@ -1,0 +1,8 @@
+https://coderwall.com/p/fbcyaw/debug-into-entity-framework-code-first
+
+https://www.developerhandbook.com/c-sharp/create-restful-api-authentication-using-web-api-jwt/
+
+https://www.c-sharpcorner.com/article/asp-net-signalr-angular2-and-typescript-real-time-clock/
+
+Open layers, open street maps
+

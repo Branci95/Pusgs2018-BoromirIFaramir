@@ -19,7 +19,6 @@ export class AddServiceComponent implements OnInit {
   }
 
   onSubmit(service: Services) {
-    debugger
     console.log(service);
     this.addServiceService.postService(service)
     .subscribe(

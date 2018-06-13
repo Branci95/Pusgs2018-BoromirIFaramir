@@ -35,6 +35,10 @@ const Routes=[
   {
     path: "addService",
     component: AddServiceComponent
+  },
+  {
+    path: "addBranch",
+    component: BranchComponent
   }
 ]
 

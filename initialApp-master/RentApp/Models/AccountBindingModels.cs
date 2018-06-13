@@ -93,4 +93,31 @@ namespace RentApp.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class BranchBindingModel
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "Logo")]
+        public string Logo { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Adress")]
+        public string Adress { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Latitude")]
+        public double Latitude { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Longitude")]
+        public double Longitude { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "ServerName")]
+        public string ServerName { get; set; }
+    }
 }
