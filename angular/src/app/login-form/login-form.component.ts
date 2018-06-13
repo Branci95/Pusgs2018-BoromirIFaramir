@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Users } from 'src/app/models/User.model';
 import { Token } from '@angular/compiler';
 
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -22,6 +23,9 @@ export class LoginFormComponent implements OnInit {
     console.log(user.Email, user.Password);
     var a = this.loginServiceService.sendData(user)
     console.log(a)
+    
+    
+    
     // .subscribe(
     //   message => {
     //     debugger

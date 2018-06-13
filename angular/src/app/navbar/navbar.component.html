@@ -11,8 +11,9 @@
             <li><a [routerLink]="['/homeRegular']">Home</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a *ngIf="!checkIfLogin()" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+            <li><a *ngIf="!checkIfLogin()" [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            <li><a *ngIf="checkIfLogin()" (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
           </ul>
         </div>
       </nav>

@@ -9,12 +9,14 @@ import { Users } from '../models/User.model';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import {Router} from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
 
-  constructor(private http: Http, private httpClient: HttpClient) { }
+  constructor(private http: Http, private httpClient: HttpClient, private router: Router) { }
 
   private parseData(res: Response) {
     return res.json() || [];
@@ -25,6 +27,8 @@ export class LoginServiceService {
     errorMessage = error.message ? error.message : error.toString();
     return Observable.throw(errorMessage);
   }
+
+  
 
   sendData(loginData): any{
     console.log(loginData);
@@ -40,27 +44,30 @@ export class LoginServiceService {
       x.subscribe(
         res => {
           console.log(res.access_token);
-          debugger
+
           let jwt = res.access_token;
 
           let jwtData = jwt.split('.')[1]
           let decodedJwtJsonData = window.atob(jwtData)
           let decodedJwtData = JSON.parse(decodedJwtJsonData)
-          debugger
+
           let role = decodedJwtData.role
-          debugger
+
           console.log('jwtData: ' + jwtData)
           console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
           console.log('decodedJwtData: ' + decodedJwtData)
           console.log('Role ' + role)
-          debugger
+
           localStorage.setItem('jwt', jwt)
           localStorage.setItem('role', role);
+
+          this.router.navigate(['/homeRegular']);
 
           return 'OK'
         },
         err => {
           console.log("Error occured");
+          alert("Bad username of password");
           return 'Error occured'
         }
       );

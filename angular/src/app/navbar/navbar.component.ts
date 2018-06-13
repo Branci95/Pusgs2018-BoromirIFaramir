@@ -15,4 +15,13 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkIfLogin(){
+    return localStorage.jwt;
+  }
+
+  logOut(){
+    if(localStorage.jwt){
+      localStorage.clear();
+    }
+  }
 }
