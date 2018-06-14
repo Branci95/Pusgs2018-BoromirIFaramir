@@ -120,4 +120,49 @@ namespace RentApp.Models
         [Display(Name = "ServerName")]
         public string ServerName { get; set; }
     }
+
+    public class TypeOfVehicleBindingModel
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+    }
+
+    public class VehicleBindingModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Model")]
+        public string Model { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Manufactor")]
+        public string Manufactor { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Year")]
+        public int Year { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "PricePerHour")]
+        public decimal PricePerHour { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "TypeOfVehicle")]
+        public string TypeOfVehicle { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "ServerName")]
+        public string ServerName { get; set; }
+    }
 }

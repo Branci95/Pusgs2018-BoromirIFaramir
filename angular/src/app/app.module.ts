@@ -18,6 +18,7 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { ClockComponent } from './clock/clock.component';
 import { SignalRService } from 'src/app/services/signalR.service';
 import { HomeRegularComponent } from './home-regular/home-regular.component';
+import { AddTypeOfVehicleComponent } from './add-type-of-vehicle/add-type-of-vehicle.component';
 
 const Routes=[
   {
@@ -39,6 +40,10 @@ const Routes=[
   {
     path: "addBranch",
     component: BranchComponent
+  },
+  {
+    path: "addTypeOfVehicle",
+    component: AddTypeOfVehicleComponent
   }
 ]
 
@@ -52,7 +57,8 @@ const Routes=[
     RegisterFormComponent,
     VehicleComponent,
     ClockComponent,
-    HomeRegularComponent
+    HomeRegularComponent,
+    AddTypeOfVehicleComponent
   ],
   imports: [
     BrowserModule,

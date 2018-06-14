@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
+using RentApp.Models;
 
 namespace RentApp.Controllers
 {
@@ -74,17 +75,48 @@ namespace RentApp.Controllers
         }
         
         [ResponseType(typeof(Vehicle))]
-        public IHttpActionResult PostVehicle(Vehicle vehicle)
+        public IHttpActionResult PostVehicle(VehicleBindingModel vehicle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unitOfWork.Vehicle.Add(vehicle);
-            unitOfWork.Complete();
+            var typeOfVehicles = unitOfWork.TypeOfVehicle.GetAll();
+            TypeOfVehicle toV = new TypeOfVehicle();
 
-            return CreatedAtRoute("DefaultApi", new { id = vehicle.Id }, vehicle);
+            foreach (var item in typeOfVehicles)
+            {
+                if (item.Name == vehicle.TypeOfVehicle)
+                {
+                    toV = item;
+                    break;
+                }
+            }
+
+            Vehicle vehi = new Vehicle() { Description = vehicle.Description, Images = new List<string>(), Manufactor = vehicle.Manufactor, Model = vehicle.Model, PricePerHour = vehicle.PricePerHour, Unavailable = false, Year = vehicle.Year, Type = toV };
+
+            toV.Vehicles.Add(vehi);
+
+            var services = unitOfWork.Services.GetAll();
+            Services ser = new Services();
+
+            foreach (var item in services)
+            {
+                if (item.Name == vehicle.ServerName)
+                {
+                    ser = item;
+                    break;
+                }
+            }
+
+            ser.Vehicles.Add(vehi);
+
+            unitOfWork.Vehicle.Add(vehi);
+            unitOfWork.TypeOfVehicle.Update(toV);
+            unitOfWork.Services.Update(ser);
+
+            return CreatedAtRoute("DefaultApi", new { id = vehi.Id }, vehicle);          
         }
 
         // DELETE: api/Vehicles/5

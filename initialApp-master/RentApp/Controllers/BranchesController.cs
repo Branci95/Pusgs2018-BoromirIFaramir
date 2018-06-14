@@ -83,34 +83,24 @@ namespace RentApp.Controllers
             }
 
             Branch bra = new Branch() { Address = branch.Adress, Latitude = branch.Latitude, Logo = branch.Logo, Longitude = branch.Longitude };
-            Services ser = new Services();
+            var services = unitOfWork.Services.GetAll();
+            Services service = new Services();
 
-            using (var db = new RADBContext())
+            foreach (var item in services)
             {
-                ser = db.Services.Where(c => c.Name.Equals(branch.ServerName)).FirstOrDefault();
+                if (item.Name == branch.ServerName)
+                {
+                    service = item;
+                    break;
+                }
             }
 
-            if(ser != null)
-            {
-                ser.Branches.Add(bra);
-            }
-            else
-            {
-                return null;
-            }
+            service.Branches.Add(bra);
 
-            using (var db = new RADBContext())
-            {
-                db.Entry(ser).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-
-            //na branch ne mapira server id, popraviti to, isti fazon kao ovo gore
-
-            
             unitOfWork.Branch.Add(bra);
+            unitOfWork.Services.Update(service);
             unitOfWork.Complete();
-
+            
             return CreatedAtRoute("DefaultApi", new { id = bra.Id }, branch);
         }
         

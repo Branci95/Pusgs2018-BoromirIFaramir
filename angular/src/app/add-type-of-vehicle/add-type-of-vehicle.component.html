@@ -1,0 +1,41 @@
+
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <fieldset>
+  
+  <!-- Form Name -->
+  <legend>Add Type of Vehicle</legend>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Name:</label>  
+    <div class="col-md-4">
+    <input id="Name" name="Name" type="text" placeholder="" class="form-control input-md" ngModel required #Name="ngModel">    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="Name.errors && (Name.dirty || Name.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!Name.errors.required">
+            Name is required!
+          </div>
+          <div [hidden]="!Name.errors.pattern">
+            Name form is invalid!
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton"></label>
+    <div class="col-md-4">
+      <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
+  </div>
+  
+  </fieldset>
+  </form>
+  
+  

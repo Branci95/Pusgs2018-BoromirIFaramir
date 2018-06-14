@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
+using RentApp.Models;
 
 namespace RentApp.Controllers
 {
@@ -76,17 +77,19 @@ namespace RentApp.Controllers
 
         // POST: api/TypeOfVehicles
         [ResponseType(typeof(TypeOfVehicle))]
-        public IHttpActionResult PostTypeOfVehicle(TypeOfVehicle typeOfVehicle)
+        public IHttpActionResult PostTypeOfVehicle(TypeOfVehicleBindingModel typeOfVehicle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unitOfWork.TypeOfVehicle.Add(typeOfVehicle);
+            TypeOfVehicle toV = new TypeOfVehicle() { Name = typeOfVehicle.Name, Vehicles = new List<Vehicle>() };
+
+            unitOfWork.TypeOfVehicle.Add(toV);
             unitOfWork.Complete();
 
-            return CreatedAtRoute("DefaultApi", new { id = typeOfVehicle.Id }, typeOfVehicle);
+            return CreatedAtRoute("DefaultApi", new { id = toV.Id }, typeOfVehicle);
         }
 
         // DELETE: api/TypeOfVehicles/5
