@@ -25,4 +25,8 @@ export class AddServiceService {
     postService(newService) : Observable<any>{
       return this.httpClient.post('http://localhost:51680/api/Services', newService);
     }
+
+    deleteService(broj) : Observable<any>{
+      return this.httpClient.delete("http://localhost:51680/api/Services", broj);
+    }
 }

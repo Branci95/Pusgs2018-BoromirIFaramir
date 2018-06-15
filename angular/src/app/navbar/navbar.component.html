@@ -9,6 +9,7 @@
           </div>
           <ul class="nav navbar-nav">
             <li><a [routerLink]="['/homeRegular']">Home</a></li>
+            <li><a [routerLink]="['/optionsService']">Services</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a *ngIf="!checkIfLogin()" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
