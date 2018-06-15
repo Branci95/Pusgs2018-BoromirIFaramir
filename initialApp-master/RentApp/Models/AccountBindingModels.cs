@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace RentApp.Models
 {
@@ -144,11 +145,14 @@ namespace RentApp.Models
         [DataType(DataType.Text)]
         [Display(Name = "Year")]
         public int Year { get; set; }
-
-        [Required]
+        
         [DataType(DataType.Text)]
         [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Image")]
+        public string Image { get; set; }
 
         [Required]
         [DataType(DataType.Text)]

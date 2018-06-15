@@ -96,6 +96,9 @@ namespace RentApp.Controllers
 
             Vehicle vehi = new Vehicle() { Description = vehicle.Description, Images = new List<string>(), Manufactor = vehicle.Manufactor, Model = vehicle.Model, PricePerHour = vehicle.PricePerHour, Unavailable = false, Year = vehicle.Year, Type = toV };
 
+            if (vehicle.Image != "")
+                vehi.Images.Add(vehicle.Image);
+
             toV.Vehicles.Add(vehi);
 
             var services = unitOfWork.Services.GetAll();
@@ -115,6 +118,7 @@ namespace RentApp.Controllers
             unitOfWork.Vehicle.Add(vehi);
             unitOfWork.TypeOfVehicle.Update(toV);
             unitOfWork.Services.Update(ser);
+            unitOfWork.Complete();
 
             return CreatedAtRoute("DefaultApi", new { id = vehi.Id }, vehicle);          
         }

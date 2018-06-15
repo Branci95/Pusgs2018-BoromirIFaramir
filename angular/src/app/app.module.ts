@@ -44,6 +44,10 @@ const Routes=[
   {
     path: "addTypeOfVehicle",
     component: AddTypeOfVehicleComponent
+  },
+  {
+    path: "addVehicle",
+    component: VehicleComponent
   }
 ]
 
