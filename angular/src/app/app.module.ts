@@ -7,6 +7,7 @@ import { HttpClientXsrfModule } from '@angular/common/http';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { AddServiceComponent } from './add-service/add-service.component';
@@ -20,6 +21,7 @@ import { SignalRService } from 'src/app/services/signalR.service';
 import { HomeRegularComponent } from './home-regular/home-regular.component';
 import { AddTypeOfVehicleComponent } from './add-type-of-vehicle/add-type-of-vehicle.component';
 import { OptionServiceComponent } from './option-service/option-service.component';
+
 
 const Routes=[
   {
@@ -68,7 +70,8 @@ const Routes=[
     ClockComponent,
     HomeRegularComponent,
     AddTypeOfVehicleComponent,
-    OptionServiceComponent
+    OptionServiceComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,7 @@ const Routes=[
     HttpClientModule,
     HttpClientXsrfModule,
     RouterModule.forRoot(Routes),
-    FormsModule
+    FormsModule 
   ],
   providers: [SignalRService],
   bootstrap: [AppComponent]

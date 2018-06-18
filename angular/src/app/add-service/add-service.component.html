@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="form-horizontal">
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="form-horizontal">
   <fieldset>
   
   <!-- Form Name -->
@@ -26,13 +26,15 @@
     </div>
   </div>
   
-  <!-- File Button --> 
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="textinput">Logo:</label>
-    <div class="col-md-4">
-      <input id="Logo" name="Logo" class="input-file" type="file" (change) = "onFileChanged($event)" ngModel #Logo="ngModel">
-    </div>
-  </div>
+  <form #form = "ngForm" class="groove">
+    <!-- File Button --> 
+      <label class="col-md-4 control-label" for="Logo">Logo</label>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data"/>
+        <button type="button" class ="btn btn-success btn-s"
+        (click)="uploader.uploadAll()"
+        [disabled] ="!uploader.getNotUploadedItems().length"></button>
+  
+  </form>
   
   <!-- Text input-->
   <div class="form-group">

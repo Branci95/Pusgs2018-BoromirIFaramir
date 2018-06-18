@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Services} from '../models/Services.model'
 import { AddServiceService } from 'src/app/services/add-service.service';
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms'
@@ -11,7 +12,9 @@ import { NgForm } from '@angular/forms'
 })
 export class HomeRegularComponent implements OnInit {
 
-  public services:Observable<any>;
+  
+
+  services: Services[];
 
   constructor(private addServicesService: AddServiceService) { }
 
