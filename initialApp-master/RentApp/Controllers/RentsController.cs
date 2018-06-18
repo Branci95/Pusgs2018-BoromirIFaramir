@@ -91,16 +91,25 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Rent))]
         public IHttpActionResult DeleteRent(int id)
         {
-            Rent rent = unitOfWork.Rent.Get(id);
-            if (rent == null)
+            var ren = unitOfWork.Rent.Get(id);
+
+            if (ren == null)
             {
                 return NotFound();
             }
 
-            unitOfWork.Rent.Remove(rent);
+            var listOfUsers = unitOfWork.AppUser.GetAll();
+            
+            foreach (var item in listOfUsers)
+            {
+                if (item.Rents.Contains(ren))
+                    item.Rents.Remove(ren);
+            }
+
+            unitOfWork.Rent.Remove(ren);
             unitOfWork.Complete();
 
-            return Ok(rent);
+            return Ok(ren);
         }
 
         protected override void Dispose(bool disposing)

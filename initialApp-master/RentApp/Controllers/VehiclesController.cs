@@ -127,16 +127,49 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult DeleteVehicle(int id)
         {
-            Vehicle vehicle = unitOfWork.Vehicle.Get(id);
-            if (vehicle == null)
+            var veh = unitOfWork.Vehicle.Get(id);
+
+            if (veh == null)
             {
                 return NotFound();
             }
 
-            unitOfWork.Vehicle.Remove(vehicle);
+            var listOfUsers = unitOfWork.AppUser.GetAll();
+            var listOfRents = unitOfWork.Rent.GetAll();
+
+            List<Rent> listRentsDelete = new List<Rent>();
+
+            foreach (var r in listOfRents)
+            {
+                if (r.Branch.Id == veh.Id)
+                {
+                    if (r.Start <= DateTime.Now && r.End >= DateTime.Now)
+                        return BadRequest("Service is in use!");
+
+                    listRentsDelete.Add(r);
+                }
+            }
+
+            int brojRent = listRentsDelete.Count;
+
+            foreach (var item in listRentsDelete)
+            {
+                foreach (var item2 in listOfUsers)
+                {
+                    if (item2.Rents.Contains(item))
+                        item2.Rents.Remove(item);
+                }
+            }
+
+            for (int i = 0; i < brojRent; i++)
+            {
+                unitOfWork.Rent.Remove(listRentsDelete[i]);
+            }
+
+            unitOfWork.Vehicle.Remove(veh);
             unitOfWork.Complete();
 
-            return Ok(vehicle);
+            return Ok(veh);
         }
 
         protected override void Dispose(bool disposing)

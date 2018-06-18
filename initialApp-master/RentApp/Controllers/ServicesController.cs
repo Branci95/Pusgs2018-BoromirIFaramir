@@ -117,16 +117,66 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Services))]
         public IHttpActionResult DeleteService(int id)
         {
-            Services service = unitOfWork.Services.Get(id);
-            if (service == null)
+            var ser = unitOfWork.Services.Get(id);
+
+            if (ser == null)
             {
                 return NotFound();
             }
 
-            unitOfWork.Services.Remove(service);
+            var listOfUsers = unitOfWork.AppUser.GetAll();
+            var listOfRents = unitOfWork.Rent.GetAll();
+            var listOfBranches = ser.Branches;
+            int brojBranches = listOfBranches.Count();
+            var listOfVehicles = ser.Vehicles;
+            int brojVehicles = listOfVehicles.Count();
+
+            List<Rent> listRentsDelete = new List<Rent>();
+
+            foreach (var b in listOfBranches)
+            {
+                foreach (var r in listOfRents)
+                {
+                    if (r.Branch.Id == b.Id)
+                    {
+                        if (r.Start <= DateTime.Now && r.End >= DateTime.Now)
+                            return BadRequest("Service is in use!");
+
+                        listRentsDelete.Add(r);
+                    }
+                }
+            }
+
+            int brojRent = listRentsDelete.Count;
+
+            foreach (var item in listRentsDelete)
+            {
+                foreach (var item2 in listOfUsers)
+                {
+                    if (item2.Rents.Contains(item))
+                        item2.Rents.Remove(item);
+                }
+            }
+
+            for (int i = 0; i < brojRent; i++)
+            {
+                unitOfWork.Rent.Remove(listRentsDelete[i]);
+            }
+
+            for (int i = 0; i < brojBranches; i++)
+            {
+                unitOfWork.Branch.Remove(listOfBranches[0]);
+            }
+
+            for (int i = 0; i < brojVehicles; i++)
+            {
+                unitOfWork.Vehicle.Remove(listOfVehicles[0]);
+            }
+
+            unitOfWork.Services.Remove(ser);
             unitOfWork.Complete();
 
-            return Ok(service);
+            return Ok(ser);
         }
 
         protected override void Dispose(bool disposing)

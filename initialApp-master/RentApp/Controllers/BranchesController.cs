@@ -107,16 +107,49 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Branch))]
         public IHttpActionResult DeleteBranch(int id)
         {
-            Branch branch = unitOfWork.Branch.Get(id);
-            if (branch == null)
+            var bra = unitOfWork.Branch.Get(id);
+
+            if (bra == null)
             {
                 return NotFound();
             }
 
-            unitOfWork.Branch.Remove(branch);
+            var listOfUsers = unitOfWork.AppUser.GetAll();
+            var listOfRents = unitOfWork.Rent.GetAll();
+
+            List<Rent> listRentsDelete = new List<Rent>();
+            
+            foreach (var r in listOfRents)
+            {
+                if (r.Branch.Id == bra.Id)
+                {
+                    if (r.Start <= DateTime.Now && r.End >= DateTime.Now)
+                        return BadRequest("Service is in use!");
+
+                    listRentsDelete.Add(r);
+                }
+            }
+
+            int brojRent = listRentsDelete.Count;
+
+            foreach (var item in listRentsDelete)
+            {
+                foreach (var item2 in listOfUsers)
+                {
+                    if (item2.Rents.Contains(item))
+                        item2.Rents.Remove(item);
+                }
+            }
+
+            for (int i = 0; i < brojRent; i++)
+            {
+                unitOfWork.Rent.Remove(listRentsDelete[i]);
+            }
+
+            unitOfWork.Branch.Remove(bra);
             unitOfWork.Complete();
 
-            return Ok(branch);
+            return Ok(bra);
         }
 
         protected override void Dispose(bool disposing)
