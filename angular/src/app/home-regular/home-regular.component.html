@@ -6,6 +6,7 @@
             <td>Name: {{item.Name}}</td>
             <td>Description: {{item.Description}}</td>
             <td>Email: {{item.Email}}</td>
+            <td><button (click)="deleteService(item.Id)" type="button" class="btn btn-danger">Delete Service</button></td>
         </tr>
     </tbody>
 </table>

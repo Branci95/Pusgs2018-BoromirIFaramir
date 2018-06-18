@@ -30,7 +30,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Logo:</label>
     <div class="col-md-4">
-      <input id="Logo" name="Logo" class="input-file" type="file" ngModel #Logo="ngModel">
+      <input id="Logo" name="Logo" class="input-file" type="file" (change) = "onFileChanged($event)" ngModel #Logo="ngModel">
     </div>
   </div>
   
@@ -38,7 +38,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">E-mail:</label>  
     <div class="col-md-4">
-    <input id="Email" name="Email" type="text" placeholder="" class="form-control input-md" ngModel required #Email="ngModel">      
+    <input id="Email" name="Email" type="text" placeholder="" class="form-control input-md" ngModel required #Email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">      
     </div>
   </div>
 

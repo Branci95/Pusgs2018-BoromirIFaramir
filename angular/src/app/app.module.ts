@@ -20,7 +20,6 @@ import { SignalRService } from 'src/app/services/signalR.service';
 import { HomeRegularComponent } from './home-regular/home-regular.component';
 import { AddTypeOfVehicleComponent } from './add-type-of-vehicle/add-type-of-vehicle.component';
 import { OptionServiceComponent } from './option-service/option-service.component';
-import { DeleteServiceComponent } from './delete-service/delete-service.component';
 
 const Routes=[
   {
@@ -54,10 +53,6 @@ const Routes=[
   {
     path: "optionsService",
     component: OptionServiceComponent
-  },
-  {
-    path: "deleteService",
-    component: DeleteServiceComponent
   }
 ]
 
@@ -73,8 +68,7 @@ const Routes=[
     ClockComponent,
     HomeRegularComponent,
     AddTypeOfVehicleComponent,
-    OptionServiceComponent,
-    DeleteServiceComponent
+    OptionServiceComponent
   ],
   imports: [
     BrowserModule,
