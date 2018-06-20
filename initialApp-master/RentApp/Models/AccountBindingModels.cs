@@ -17,6 +17,11 @@ namespace RentApp.Models
     public class ChangePasswordBindingModel
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
@@ -61,6 +66,29 @@ namespace RentApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class ChangeUserDataBindingModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [Display(Name = "FullName")]
+        public string FullName { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "DateOfBirth")]
+        [DataType(DataType.DateTime)]
+        public DateTime? DateOfBirth { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Logo")]
+        public string Logo { get; set; }
     }
 
     public class RegisterExternalBindingModel

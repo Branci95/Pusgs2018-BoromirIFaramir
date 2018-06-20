@@ -4,11 +4,12 @@
   <!-- Form Name -->
   <legend>Add Vehicle</legend>
   
-  <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-4 control-label" for="textinput">Type:</label>  
+    <label class="col-md-4 control-label" for="textinput">Vehicle Type</label>  
     <div class="col-md-4">
-    <input id="TypeOfVehicle" name="TypeOfVehicle" type="text" placeholder="" class="form-control input-md" ngModel required #TypeOfVehicle="ngModel">    
+      <select class="form-control" name="TypeOfVehicle" id="TypeOfVehicle" ngModel required #TypeOfVehicle="ngModel">
+          <option *ngFor="let t of typeOfVehicle" value="{{t.Name}}">{{t.Name}}</option>
+      </select>
     </div>
   </div>
 
@@ -133,7 +134,9 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Server name:</label>  
       <div class="col-md-4">
-      <input id="ServerName" name="ServerName" type="text" placeholder="" class="form-control input-md" ngModel required #ServerName="ngModel">    
+        <select class="form-control" name="ServerName" id="ServerName" ngModel required #ServerName="ngModel">
+          <option *ngFor="let t of services" value="{{t.Name}}">{{t.Name}}</option>
+        </select>    
       </div>
     </div>
     

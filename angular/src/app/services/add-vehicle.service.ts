@@ -25,4 +25,12 @@ export class AddVehicleService {
     postVehicle(newVehicle) : Observable<any>{
       return this.httpClient.post('http://localhost:51680/api/Vehicles', newVehicle);
     }
+
+    getListOfVehicleTypes(): Observable<any> {
+      return this.httpClient.get('http://localhost:51680/api/TypeOfVehicles');
+    }
+
+    getListOfServers(): Observable<any> {
+      return this.httpClient.get('http://localhost:51680/api/Services');
+    }
 }

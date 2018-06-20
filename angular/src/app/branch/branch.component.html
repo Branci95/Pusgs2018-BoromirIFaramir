@@ -1,18 +1,21 @@
 
-<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
   <fieldset>
-  
+ 
   <!-- Form Name -->
   <legend>Add Branch</legend>
-  
-  <!-- File Button --> 
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="filebutton">Picture</label>
-    <div class="col-md-4">
-      <input id="Logo" name="Logo" class="input-file" type="file" ngModel #Logo="ngModel">
-    </div>
-  </div>
-  
+ 
+  <!-- File Button -->
+  <form #form = "ngForm" class="groove">
+    <!-- File Button -->
+      <label class="col-md-4 control-label" for="Logo">Logo</label>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data"/>
+        <button type="button" class ="btn btn-success btn-s"
+        (click)="uploader.uploadAll()"
+        [disabled] ="!uploader.getNotUploadedItems().length"></button>
+ 
+  </form>
+ 
   <!-- Text input-->
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Adress:</label>  
@@ -20,7 +23,7 @@
     <input id="Adress" name="Adress" type="text" placeholder="" class="form-control input-md" ngModel required #Adress="ngModel">    
     </div>
   </div>
-  
+ 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
       <div *ngIf="Adress.errors && (Adress.dirty || Adress.touched)"
@@ -34,15 +37,15 @@
       </div>
     </div>
   </div>
-  
+ 
   <!-- Text input-->
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Latitude:</label>  
     <div class="col-md-4">
-    <input id="Latitude" name="Latitude" type="number" placeholder="" class="form-control input-md" ngModel required #Latitude="ngModel">   
+    <input id="Latitude" name="Latitude" type="number" placeholder="" class="form-control input-md" ngModel required #Latitude="ngModel">  
     </div>
   </div>
-  
+ 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
       <div *ngIf="Latitude.errors && (Latitude.dirty || Latitude.touched)"
@@ -56,15 +59,15 @@
       </div>
     </div>
   </div>
-  
+ 
   <!-- Text input-->
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Longitude:</label>  
     <div class="col-md-4">
-    <input id="Longitude" name="Longitude" type="number" placeholder="" class="form-control input-md" ngModel required #Longitude="ngModel">   
+    <input id="Longitude" name="Longitude" type="number" placeholder="" class="form-control input-md" ngModel required #Longitude="ngModel">  
     </div>
   </div>
-  
+ 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
       <div *ngIf="Longitude.errors && (Longitude.dirty || Longitude.touched)"
@@ -78,14 +81,16 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Server name:</label>  
     <div class="col-md-4">
-    <input id="ServerName" name="ServerName" type="text" placeholder="" class="form-control input-md" ngModel required #ServerName="ngModel">    
+      <select class="form-control" name="ServerName" id="ServerName" ngModel required #ServerName="ngModel">
+        <option *ngFor="let t of services" value="{{t.Name}}">{{t.Name}}</option>
+      </select>    
     </div>
   </div>
-  
+ 
   <div class="row">
     <div class="col col-lg-4 col-lg-push-4">
       <div *ngIf="ServerName.errors && (ServerName.dirty || ServerName.touched)"
@@ -99,7 +104,7 @@
       </div>
     </div>
   </div>
-  
+ 
   <!-- Button -->
   <div class="form-group">
     <label class="col-md-4 control-label" for="singlebutton"></label>
@@ -107,8 +112,6 @@
       <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
   </div>
-  
+ 
   </fieldset>
   </form>
-  
-  

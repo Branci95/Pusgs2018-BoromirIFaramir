@@ -9,11 +9,12 @@
           </div>
           <ul class="nav navbar-nav">
             <li><a [routerLink]="['/homeRegular']">Home</a></li>
-            <li><a [routerLink]="['/optionsService']">Services</a></li>
+            <li><a [routerLink]="['/options']">Add entities</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a *ngIf="!checkIfLogin()" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
             <li><a *ngIf="!checkIfLogin()" [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            <li><a *ngIf="checkIfLogin()" [routerLink]="['/account']"><span class="glyphicon glyphicon-user"></span>Account</a></li>
             <li><a *ngIf="checkIfLogin()" (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
           </ul>
         </div>

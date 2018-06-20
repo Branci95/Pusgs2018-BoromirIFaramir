@@ -83,6 +83,14 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            var list = unitOfWork.Services.GetAll();
+
+            foreach (var item in list)
+            {
+                if (item.Name == service.Name)
+                    return BadRequest("Already is service with this name: " + service.Name);
+            }
+
             Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>() };
 
             unitOfWork.Services.Add(ser);

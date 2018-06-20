@@ -28,7 +28,19 @@ export class LoginServiceService {
     return Observable.throw(errorMessage);
   }
 
-  
+  getUserData(userEmail): any{
+    return this.httpClient.get(`http://localhost:51680/api/Account/GetCurrentUser?email=${userEmail}`);
+  }
+
+  ChangeUserData(newUser): Observable<any>{
+    
+    return this.httpClient.post('http://localhost:51680/api/Account/ChangeUserData', newUser);
+  }
+
+  ChangeUserPassword(passwords): Observable<any>{
+    
+    return this.httpClient.post('http://localhost:51680/api/Account/ChangePassword', passwords);
+  }
 
   sendData(loginData): any{
     console.log(loginData);
@@ -58,8 +70,9 @@ export class LoginServiceService {
           console.log('decodedJwtData: ' + decodedJwtData)
           console.log('Role ' + role)
 
-          localStorage.setItem('jwt', jwt)
+          localStorage.setItem('jwt', jwt);
           localStorage.setItem('role', role);
+          localStorage.setItem("email", loginData.Email);
 
           this.router.navigate(['/homeRegular']);
 
@@ -85,8 +98,5 @@ export class LoginServiceService {
         }
       );
     }
-
-
-
   }
 }

@@ -21,6 +21,7 @@ import { SignalRService } from 'src/app/services/signalR.service';
 import { HomeRegularComponent } from './home-regular/home-regular.component';
 import { AddTypeOfVehicleComponent } from './add-type-of-vehicle/add-type-of-vehicle.component';
 import { OptionServiceComponent } from './option-service/option-service.component';
+import { AccountComponent } from './account/account.component';
 
 
 const Routes=[
@@ -53,9 +54,13 @@ const Routes=[
     component: VehicleComponent
   },
   {
-    path: "optionsService",
+    path: "options",
     component: OptionServiceComponent
-  }
+  },
+  {
+    path: "account",
+    component: AccountComponent
+  } 
 ]
 
 @NgModule({
@@ -71,7 +76,8 @@ const Routes=[
     HomeRegularComponent,
     AddTypeOfVehicleComponent,
     OptionServiceComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

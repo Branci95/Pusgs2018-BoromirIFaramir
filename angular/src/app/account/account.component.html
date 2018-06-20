@@ -1,0 +1,135 @@
+<div>
+<form #f="ngForm" (ngSubmit)="ChangeData(f.value)">
+    <div class="row">
+      <div class="col col-lg-4 col-lg-push-4">
+          <div class="row">
+            <h1>Account:{{user.FullName}}</h1>
+            <br>
+            <br>
+            <td style="width: 250px;"><img width="200" src='{{user.Logo}}' /></td>
+          </div>
+          <div class="row">
+            <div class="col col-lg-4">
+              <hr>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" class="form-control" name="FullName" required minlength="5" maxlength="42" value="{{user.FullName}}" ngModel #FullName="ngModel">
+            <div *ngIf="FullName.errors && (FullName.dirty || FullName.touched)" class="alert alert-danger">
+              <div [hidden]="!FullName.errors.required">
+                Full name is required!
+              </div>
+              <div [hidden]="!FullName.errors.minlength">
+                Full name must be at least 5 characters long.
+              </div>
+              <div [hidden]="!FullName.errors.maxlength">
+                Full name cannot be more than 42 characters long.
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" readonly name="Email" value="{{user.Email}}" ngModel #Email="ngModel">
+          </div>
+  
+          <div class="form-group">
+              <label for="DateOfBirth">Birthday</label>
+              <input type="date" name="DateOfBirth" class="form-control" value="{{this.user.Birthday}}" required length="10" ngModel #DateOfBirth="ngModel">
+              <div *ngIf="DateOfBirth.errors && (DateOfBirth.dirty || DateOfBirth.touched)" class="alert alert-danger">
+                <div [hidden]="!DateOfBirth.errors.required">
+                  Birthday is required!
+                </div>
+              </div>
+          </div>
+          <br>
+          <br>
+  <form #form = "ngForm" class="groove">
+              <!-- File Button --> 
+                <label class="col-md-4 control-label" for="Logo">Change Image</label>
+                  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data"/>
+                  <button type="button" class ="btn btn-success btn-s"
+                  (click)="uploader.uploadAll()"
+                  [disabled] ="!uploader.getNotUploadedItems().length"></button>
+            
+            </form>
+          <br>
+            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Change data</button>
+            <br>
+            <br>
+            <br>
+          
+            <button (click)="ChangePassword()" type="button" class="btn btn-default">Change password</button>
+        </div>
+    </div>
+  </form>
+
+</div>
+
+  <div>
+      
+    <form class="form-horizontal" #forma="ngForm" (ngSubmit)="ChangePass(forma.value)">
+      <fieldset>
+      
+     <br>
+     <br>
+      <!-- Password input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="passwordinput">Old Password</label>
+        <div class="col-md-4">
+          <input id="OldPassword" name="OldPassword" type="password" placeholder="" class="form-control input-md" ngModel required #OldPassword="ngModel">
+          
+        </div>
+      </div>
+      
+      <!-- Password input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="passwordinput">New Password</label>
+        <div class="col-md-4">
+          <input id="NewPassword" name="NewPassword" type="password" placeholder="" class="form-control input-md" ngModel required #NewPassword="ngModel">
+          
+          <!--<div *ngIf="passwordold.errors && (passwordold.dirty || passwordold.touched)"
+          class="alert alert-danger">  
+           <div [hidden]="!passwordold.errors.required">
+             Password is required!
+           </div>
+           <div [hidden]="!passwordold.errors.minlength">
+             Password min length is 7 characters.
+           </div>
+           <div [hidden]="!passwordold.errors.maxlength">
+             Password max length is 42 characters.
+           </div>
+         </div>-->
+        </div>
+      </div>
+      
+      <!-- Password input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="passwordinput">Confirm New Password</label>
+        <div class="col-md-4">
+          <input id="ConfirmPassword" name="ConfirmPassword" type="password" placeholder="" class="form-control input-md" ngModel required #ConfirmPassword="ngModel">
+         <!-- <div *ngIf="(ConfirmPassword.dirty || ConfirmPassword.touched)"
+          class="alert alert-danger">  
+           <div [hidden]="passwordold.value == ConfirmPassword.value">
+             Password doesn't match
+           </div>
+         </div>-->
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="passwordinput"></label>
+        <div class="col-md-4">
+          <button class="col-md-4" type="submit" class="btn btn-success" [disabled]="!forma.valid">Change Password</button>
+
+        </div>
+      </div>
+
+      </fieldset>
+      </form>
+ 
+  <!--</div>-->
+
+</div>

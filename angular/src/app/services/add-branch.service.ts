@@ -25,4 +25,8 @@ export class AddBranchService {
     postBranch(newBranch) : Observable<any>{
       return this.httpClient.post('http://localhost:51680/api/Branches', newBranch);
     }
+
+    getListOfServers(): Observable<any> {
+      return this.httpClient.get('http://localhost:51680/api/Services');
+    }
 }

@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http/src/headers';
 @Injectable({
   providedIn: 'root'
 })
-export class AddServiceService {
+export class HomeRegularService {
 
   constructor(private http: Http, private httpClient: HttpClient) { }
   
@@ -23,20 +23,27 @@ export class AddServiceService {
       return Observable.throw(errorMessage);
     }
 
-    /*getAllServices() : Observable<any>{
+    getAllServices() : Observable<any>{
       return this.httpClient.get('http://localhost:51680/api/Services');
     }
 
     getAllBranches() : Observable<any>{
       return this.httpClient.get('http://localhost:51680/api/Branches');
-    }*/
-
-    postService(newService) : Observable<any>{
-      return this.httpClient.post('http://localhost:51680/api/Services', newService);
     }
 
-    /*deleteService(delService) : Observable<any>{
-      return this.httpClient.delete(`http://localhost:51680/api/Services?id=${delService}`);
-    }*/
+    getAllVehicles() : Observable<any>{
+      return this.httpClient.get('http://localhost:51680/api/Vehicles');
+    }
 
+    deleteService(delService) : Observable<any>{
+      return this.httpClient.delete(`http://localhost:51680/api/Services?id=${delService}`);
+    }
+
+    deleteBranch(delBranch) : Observable<any>{
+      return this.httpClient.delete(`http://localhost:51680/api/Branches?id=${delBranch}`);
+    }
+
+    deleteVehicle(delVehicle) : Observable<any>{
+      return this.httpClient.delete(`http://localhost:51680/api/Vehicles?id=${delVehicle}`);
+    }
 }

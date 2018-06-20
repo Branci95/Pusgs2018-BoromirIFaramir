@@ -312,6 +312,10 @@
     <Compile Include="Migrations\201806050943362_promena naziva.Designer.cs">
       <DependentUpon>201806050943362_promena naziva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806191905147_AddImageAppUser.cs" />
+    <Compile Include="Migrations\201806191905147_AddImageAppUser.Designer.cs">
+      <DependentUpon>201806191905147_AddImageAppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -441,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806050943362_promena naziva.resx">
       <DependentUpon>201806050943362_promena naziva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806191905147_AddImageAppUser.resx">
+      <DependentUpon>201806191905147_AddImageAppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

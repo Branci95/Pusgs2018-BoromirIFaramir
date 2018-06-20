@@ -82,6 +82,14 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            var list = unitOfWork.Vehicle.GetAll();
+
+            foreach (var item in list)
+            {
+                if (item.Model == vehicle.Model)
+                    return BadRequest("Already is vehicle with this name: " + vehicle.Model);
+            }
+
             var typeOfVehicles = unitOfWork.TypeOfVehicle.GetAll();
             TypeOfVehicle toV = new TypeOfVehicle();
 

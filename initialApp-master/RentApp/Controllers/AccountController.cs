@@ -17,6 +17,7 @@ using RentApp.Models;
 using RentApp.Models.Entities;
 using RentApp.Providers;
 using RentApp.Results;
+using RentApp.Persistance.UnitOfWork;
 
 namespace RentApp.Controllers
 {
@@ -26,15 +27,18 @@ namespace RentApp.Controllers
     {
         private const string LocalLoginProvider = "Local";
 
+        private readonly IUnitOfWork unitOfWork;
+
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IUnitOfWork unitOfWork)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            this.unitOfWork = unitOfWork;
         }
 
         public ApplicationUserManager UserManager { get; private set; }
@@ -54,6 +58,52 @@ namespace RentApp.Controllers
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
+        }
+
+        [AllowAnonymous]
+        [Route("GetCurrentUser")]
+        public AppUser GetCurrentUser(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return null;
+            }
+
+            AppUser currentUser = unitOfWork.AppUser.Get(email);
+
+            if (currentUser == null)
+            {
+                return null;
+            }
+
+            return currentUser;
+        }
+
+        [AllowAnonymous]
+        [Route("ChangeUserData")]
+        public async Task<IHttpActionResult> ChangeUserData(ChangeUserDataBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            foreach (AppUser u in unitOfWork.AppUser.GetAll())
+            {
+                if (u.Email == model.Email)
+                {
+                    u.FullName = model.FullName;
+                    u.Birthday = model.DateOfBirth;
+                    u.Logo = model.Logo;
+
+                    unitOfWork.AppUser.Update(u);
+                    unitOfWork.Complete();
+
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
         }
 
         // POST api/Account/Logout
@@ -105,6 +155,7 @@ namespace RentApp.Controllers
         }
 
         // POST api/Account/ChangePassword
+        [AllowAnonymous]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -113,7 +164,9 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            var userId = UserManager.FindByName(model.Email)?.Id;
+
+            IdentityResult result = await UserManager.ChangePasswordAsync(userId, model.OldPassword,
                 model.NewPassword);
             
             if (!result.Succeeded)
@@ -318,6 +371,14 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            foreach (AppUser u in unitOfWork.AppUser.GetAll())
+            {
+                if (u.Email == model.Email)
+                {
+                    return Unauthorized();
+                }
+            }
+
             var appuser = new AppUser() { FullName = model.FullName, Email = model.Email, Birthday = model.DateOfBirth, Activated = false, PersonalDocument = null, Rents = new List<Rent>() };
 
             var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email, AppUser = appuser, PasswordHash = RAIdentityUser.HashPassword(model.Password) };
@@ -326,7 +387,7 @@ namespace RentApp.Controllers
 
             if (!result.Succeeded)
             {
-                return Content(System.Net.HttpStatusCode.BadRequest, "User already exists!");
+                return Content(System.Net.HttpStatusCode.BadRequest, "BadRequest!");
             }
 
             UserManager.AddToRole(user.Id, "AppUser");
