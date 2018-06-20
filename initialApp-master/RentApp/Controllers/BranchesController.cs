@@ -35,6 +35,7 @@ namespace RentApp.Controllers
         [HttpGet]
         public List<Branch> ReturnBranchesByServer(int model)
         {
+            //int id = Int32.Parse(model);
             var service = unitOfWork.Services.Get(model);
             List<Branch> lista = new List<Branch>();
 

@@ -31,6 +31,7 @@ import { AgmCoreModule } from '@agm/core';
 import {CanActivateViaAuthGuard} from './guard/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor';
+import { AddRentComponent } from './add-rent/add-rent.component';
 
 const Routes=[
   {
@@ -91,6 +92,11 @@ const Routes=[
     path: "vehicle",
     component: VehicleComponent,
     canActivate: ['CanAlwaysActivateGuard']
+  } ,
+  {
+    path: "addrent/:id",
+    component: AddRentComponent,
+    canActivate: ['CanAppUserActivateGuard']
   }
 ]
 
@@ -111,7 +117,8 @@ const Routes=[
     AccountComponent,
     ServiceComponent,
     BranchComponent,
-    VehicleComponent
+    VehicleComponent,
+    AddRentComponent
   ],
   imports: [
     BrowserModule,
