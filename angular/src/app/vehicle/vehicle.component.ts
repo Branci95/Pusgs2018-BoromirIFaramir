@@ -10,12 +10,45 @@ import { Vehicle } from '../models/Vehicle.model';
 export class VehicleComponent implements OnInit {
 
   vehicles: Vehicle[];
+  vehiclesSearch: Vehicle[];
   public word : string;
+  search: string = '';
+  selected: string = '';
 
   constructor(private homeRegularService: HomeRegularService) { }
 
   ngOnInit() {
     this.callGetVehicle();
+  }
+
+  selectChangeHandler(event: any) {
+    this.selected = event.target.value;
+  }
+
+  doSomething(event: any) {
+    this.vehiclesSearch = [];
+    this.search = event;
+    
+    this.vehicles.forEach(obj => {
+      if (this.selected == "Model")
+      {
+        var brojEvent = event.length;
+        var rec = obj.Model.slice(0, brojEvent);
+        
+        if (rec.toLowerCase() == event.toLowerCase())
+        {
+          this.vehiclesSearch.push(obj);
+        }
+      }
+      else if (this.selected == "Price")
+      {
+        if (event <= obj.PricePerHour)
+        {
+          this.vehiclesSearch.push(obj);
+        }
+      }
+
+    });
   }
 
   callGetVehicle(){

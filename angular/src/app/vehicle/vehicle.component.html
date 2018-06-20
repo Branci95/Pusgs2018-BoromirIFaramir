@@ -9,8 +9,30 @@
 <br>
 <br>
 <br>
-<table class="table table-striped table-dark" >
+<textarea [ngModel]="data" (ngModelChange)="doSomething($event)"></textarea>
+<select class="col-md-1 text-center" (change)="selectChangeHandler($event)">
+    <option value="Model" selected>Model</option>
+    <option value="Price">Price</option>
+</select> 
+<table class="table table-striped table-dark" *ngIf="search==''">
     <tbody *ngFor = "let item of vehicles">
+        <tr *ngIf="item.Unavailable == false">
+            <td style="width: 250px;"><img width="200" src='{{item.Image}}' />Slika</td>
+            <td>Type: {{item.TypeOfVehicle}}</td>
+            <td>Model: {{item.Model}}</td>
+            <td>Manufactor: {{item.Manufactor}}</td>
+            <td>Year: {{item.Year}}</td>
+            <td>Description: {{item.Description}}</td>
+            <td>Price per hour: {{item.PricePerHour}}</td>
+            <td>Server name: {{item.ServerName}}</td>
+            <td><button *ngIf="isInRole('Manager') || isInRole('Admin')" (click)="UnavailableVehicle(item)" type="button" class="btn btn-warning">Set Vehicle Unavailable</button></td>
+            <td><button *ngIf="isInRole('Manager') || isInRole('Admin')" (click)="deleteVehicle(item.Id)" type="button" class="btn btn-danger">Delete Vehicle</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-striped table-dark" *ngIf="search!=''">
+    <tbody *ngFor = "let item of vehiclesSearch">
         <tr *ngIf="item.Unavailable == false">
             <td style="width: 250px;"><img width="200" src='{{item.Image}}' />Slika</td>
             <td>Type: {{item.TypeOfVehicle}}</td>

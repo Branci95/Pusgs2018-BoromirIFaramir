@@ -75,6 +75,28 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [AllowAnonymous]
+        [Route("api/Services/Grade")]
+        [HttpGet]
+        public void Grade(int id, int grade)
+        {
+            var service = unitOfWork.Services.Get(id);
+
+            double ocena = service.Grade;
+
+            ocena += grade;
+
+            if (service.Grade == 0)
+                ocena = grade;
+            else
+                ocena /= 2;
+
+            service.Grade = ocena;
+
+            unitOfWork.Services.Update(service);
+            unitOfWork.Complete();
+        }
+
         [ResponseType(typeof(Services))]
         public IHttpActionResult PostService(Services service)
         {
