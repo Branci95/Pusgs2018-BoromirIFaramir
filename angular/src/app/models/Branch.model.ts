@@ -5,6 +5,7 @@ export class Branch{
             public Address: string,
             public Latitude: number,
             public Longitude: number,
-            public ServerName: string
+            public ServerName: string,
+            public Id:number
         ){ }
     }

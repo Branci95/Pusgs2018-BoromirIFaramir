@@ -72,7 +72,6 @@ export class AddVehicleComponent implements OnInit {
   }
 
   onSubmit(vehicle: Vehicle) {
-    debugger
     console.log(vehicle);
     vehicle.Image = this.url;
     this.addVehicleService.postVehicle(vehicle)
