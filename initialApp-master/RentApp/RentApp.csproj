@@ -316,6 +316,10 @@
     <Compile Include="Migrations\201806191905147_AddImageAppUser.Designer.cs">
       <DependentUpon>201806191905147_AddImageAppUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806201541343_DodaoOcenu.cs" />
+    <Compile Include="Migrations\201806201541343_DodaoOcenu.Designer.cs">
+      <DependentUpon>201806201541343_DodaoOcenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806191905147_AddImageAppUser.resx">
       <DependentUpon>201806191905147_AddImageAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201541343_DodaoOcenu.resx">
+      <DependentUpon>201806201541343_DodaoOcenu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
