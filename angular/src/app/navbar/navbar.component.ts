@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
    }
 
   ngOnInit() {
+
   }
 
   checkIfLogin(){
@@ -23,5 +24,13 @@ export class NavbarComponent implements OnInit {
     if(localStorage.jwt){
       localStorage.clear();
     }
+  }
+
+  isInRole(r: string){
+    if(localStorage.getItem('role') == r){
+      return true;
+    }
+
+    return false;
   }
 }

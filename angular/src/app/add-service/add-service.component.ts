@@ -7,6 +7,8 @@ import { Services } from '../models/Services.model'
 import { error } from 'selenium-webdriver';
 import { debug } from 'util';
 
+import {Router} from '@angular/router';
+
 const URL = 'http://localhost:51680/api/Upload/user/PostUserImage';
 
 @Component({
@@ -20,7 +22,7 @@ export class AddServiceComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
   url: string;
 
-  constructor(private addServiceService : AddServiceService) { 
+  constructor(private addServiceService : AddServiceService , private router: Router) { 
     this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false;};
     this.uploader.onCompleteItem = (item: any, response: any,status: any, headers: any) => {
         this.url=JSON.parse(response);        
@@ -39,8 +41,9 @@ export class AddServiceComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully add service!");
-        form.reset();
-        
+
+        this.router.navigate(['/services']);
+
       },
     error=>{
       console.log(error);

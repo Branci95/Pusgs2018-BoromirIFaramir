@@ -72,7 +72,7 @@ export class AccountComponent implements OnInit {
 
 
   ChangePassword(){
-    return this.changePass = !this.changePass;
+    this.changePass = !this.changePass;
   }
 
   GetUserData(){
@@ -86,5 +86,13 @@ export class AccountComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  isInRole(r: string){
+    if(localStorage.getItem('role') == r){
+      return true;
+    }
+
+    return false;
   }
 }

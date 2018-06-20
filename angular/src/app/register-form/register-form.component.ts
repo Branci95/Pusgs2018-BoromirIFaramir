@@ -5,6 +5,8 @@ import { Users } from '../models/User.model'
 import { error } from 'selenium-webdriver';
 import { debug } from 'util';
 
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -14,7 +16,7 @@ export class RegisterFormComponent implements OnInit {
 
   isValid : Boolean;
 
-  constructor(private signupServiceService : SignupServiceService) { };
+  constructor(private signupServiceService : SignupServiceService, private router: Router) { };
 
   ngOnInit() {
   }
@@ -25,6 +27,7 @@ export class RegisterFormComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully registred!");
+        this.router.navigate(['/login']);
       },
     error=>{
       console.log(error);

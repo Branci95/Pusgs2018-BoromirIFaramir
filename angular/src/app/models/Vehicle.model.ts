@@ -8,6 +8,7 @@ export class Vehicle{
             public Image: string,
             public Description: string,
             public PricePerHour: number,
-            public ServerName: string
+            public ServerName: string,
+            public Unavailable: boolean
         ){ }
     }

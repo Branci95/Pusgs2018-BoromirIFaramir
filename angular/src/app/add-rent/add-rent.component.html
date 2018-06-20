@@ -1,0 +1,79 @@
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+    <fieldset>
+    
+    <!-- Form Name -->
+    <legend>Add Rent</legend>
+    
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Start:</label>  
+        <div class="col-md-4">
+            <input type="date" name="Start" class="form-control" required length="10" ngModel #Start="ngModel">
+            <div *ngIf="Start.errors && (Start.dirty || Start.touched)" class="alert alert-danger">
+              <div [hidden]="!Start.errors.required">
+                Start time is required!
+              </div>
+            </div>
+        </div>
+    </div>
+  
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">End:</label>  
+        <div class="col-md-4">
+            <input type="date" name="End" class="form-control" required length="10" ngModel #End="ngModel">
+            <div *ngIf="End.errors && (End.dirty || End.touched)" class="alert alert-danger">
+              <div [hidden]="!End.errors.required">
+                  End time is required!
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Branch:</label>  
+        <div class="col-md-4">
+          <select class="form-control" name="Branch" id="Branch" ngModel required #Branch="ngModel">
+            <option *ngFor="let t of branch" value="{{t.Id}}">{{t.Id}}, {{t.Address}}</option>
+          </select>    
+        </div>
+      </div>
+    
+      <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Vehicle:</label>  
+          <div class="col-md-4">
+            <select class="form-control" name="Vehicle" id="Vehicle" ngModel required #Vehicle="ngModel">
+              <option *ngFor="let t of vehicle" value="{{t.Id}}">{{t.Id}}, {{t.Model}}</option>
+            </select>    
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">User:</label>  
+            <div class="col-md-4">
+              <select class="form-control" name="User" id="User" ngModel required #User="ngModel">
+                <option *ngFor="let t of user" value="{{t.Id}}">{{t.FullName}}, {{t.Email}}</option>
+              </select>    
+            </div>
+          </div>
+
+              <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Service:</label>  
+                  <div class="col-md-4">
+                    <select class="form-control">
+                      <option *ngFor="let t of service" value="{{t.Id}}">{{t.Id}}, {{t.Name}}</option>
+                    </select>    
+                  </div>
+                </div>
+
+            <td><button (click)="prikazservisa()" type="button" class="btn btn-danger">Delete Branch</button></td>
+   
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="singlebutton"></label>
+      <div class="col-md-4">
+        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </div>
+    
+    </fieldset>
+    </form>
+    

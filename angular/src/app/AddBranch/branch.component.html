@@ -1,0 +1,144 @@
+
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
+  <fieldset>
+  
+  <!-- Form Name -->
+  <legend>Add Branch</legend>
+  
+  <!-- File Button --> 
+  <form #form = "ngForm" class="groove">
+    <!-- File Button --> 
+      <label class="col-md-4 control-label" for="Logo">Logo</label>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data"/>
+        <button type="button" class ="btn btn-success btn-s"
+        (click)="uploader.uploadAll()"
+        [disabled] ="!uploader.getNotUploadedItems().length"></button>
+  
+  </form>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Adress:</label>  
+    <div class="col-md-4">
+    <input id="Adress" name="Adress" type="text" placeholder="" class="form-control input-md" ngModel required #Adress="ngModel">    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="Adress.errors && (Adress.dirty || Adress.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!Adress.errors.required">
+            Adress is required!
+          </div>
+          <div [hidden]="!Adress.errors.pattern">
+            Adress form is invalid!
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <p align="center">Select the place on map where is your branch located:</p>
+    
+      <div align="center">
+        <p>
+          <!-- Kreiramo mapu -->
+          <agm-map id="Mapa" name="Mapa" align="center" [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [zoom]="13" (mapClick)="placeMarker($event)">
+           
+            <!-- Postavljamo markere -->
+            
+            <agm-marker [latitude]="this.tempMarker.Lat" [longitude]="this.tempMarker.Lgt"></agm-marker>
+          </agm-map>
+        </p>
+        </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="(this.tempMarker.Lat == -1 || this.tempMarker.Lat == -1)"
+            class="alert alert-danger">  
+          <div [hidden]="!Mapa.errors.required">
+            Latitude is required!
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Latitude:</label>  
+    <div class="col-md-4">
+    <input id="Latitude" name="Latitude" readonly type="number" placeholder="" class="form-control input-md" [(ngModel)]="this.lat" >   
+    </div>
+  </div>
+  
+  <!--><div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="Latitude.errors && (Latitude.dirty || Latitude.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!Latitude.errors.required">
+            Latitude is required!
+          </div>
+          <div [hidden]="!Latitude.errors.pattern">
+            Latitude form is invalid!
+          </div>
+      </div>
+    </div>
+  </div><-->
+  
+  
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Longitude:</label>  
+    <div class="col-md-4">
+    <input id="Longitude" name="Longitude" type="number" readonly placeholder="" class="form-control input-md" [(ngModel)]="this.lgt">   
+    </div>
+  </div>
+  
+  <!--<div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="Longitude.errors && (Longitude.dirty || Longitude.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!Longitude.errors.required">
+            Longitude is required!
+          </div>
+          <div [hidden]="!Longitude.errors.pattern">
+            Longitude form is invalid!
+          </div>
+      </div>
+    </div>
+  </div><-->
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Server name:</label>  
+    <div class="col-md-4">
+    <input id="ServerName" name="ServerName" type="text" placeholder="" class="form-control input-md" ngModel required #ServerName="ngModel">    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-lg-4 col-lg-push-4">
+      <div *ngIf="ServerName.errors && (ServerName.dirty || ServerName.touched)"
+            class="alert alert-danger">  
+          <div [hidden]="!ServerName.errors.required">
+            Server name is required!
+          </div>
+          <div [hidden]="!ServerName.errors.pattern">
+            Server name form is invalid!
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton"></label>
+    <div class="col-md-4">
+      <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success" [disabled]="!f.valid"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
+  </div>
+  
+  </fieldset>
+  </form>
+  
+  

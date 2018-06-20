@@ -68,7 +68,7 @@
 
 </div>
 
-  <div>
+  <div *ngIf="this.changePass">
       
     <form class="form-horizontal" #forma="ngForm" (ngSubmit)="ChangePass(forma.value)">
       <fieldset>
@@ -132,4 +132,8 @@
  
   <!--</div>-->
 
+</div>
+
+<div>
+  
 </div>

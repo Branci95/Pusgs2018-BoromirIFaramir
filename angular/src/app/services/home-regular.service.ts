@@ -46,4 +46,9 @@ export class HomeRegularService {
     deleteVehicle(delVehicle) : Observable<any>{
       return this.httpClient.delete(`http://localhost:51680/api/Vehicles?id=${delVehicle}`);
     }
+
+    unavailableVehicle(unaVehicle) : Observable<any>{                       //videti za ovo sta bi trebalo
+      debugger
+      return// this.httpClient.post(`http://localhost:51680/api/Vehicles?id=${unaVehicle}`);
+    }
 }

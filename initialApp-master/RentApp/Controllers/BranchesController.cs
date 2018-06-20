@@ -12,6 +12,7 @@ using RentApp.Models.Entities;
 using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
 using RentApp.Models;
+using System.Threading.Tasks;
 
 namespace RentApp.Controllers
 {
@@ -28,7 +29,23 @@ namespace RentApp.Controllers
         {
             return unitOfWork.Branch.GetAll();
         }
-        
+
+        [AllowAnonymous]
+        [Route("api/Branches/ReturnBranchesByServer")]
+        [HttpGet]
+        public List<Branch> ReturnBranchesByServer(int model)
+        {
+            var service = unitOfWork.Services.Get(model);
+            List<Branch> lista = new List<Branch>();
+
+            foreach (var item in service.Branches)
+            {
+                lista.Add(item);
+            }
+
+            return lista;
+        }
+
         [ResponseType(typeof(Branch))]
         public IHttpActionResult GetBranch(int id)
         {

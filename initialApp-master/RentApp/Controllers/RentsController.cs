@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
+using RentApp.Models;
 
 namespace RentApp.Controllers
 {
@@ -74,17 +75,37 @@ namespace RentApp.Controllers
         }
         
         [ResponseType(typeof(Rent))]
-        public IHttpActionResult PostRent(Rent rent)
+        public IHttpActionResult PostRent(RentBindingModel rent)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unitOfWork.Rent.Add(rent);
+            if (rent.Start > rent.End)
+                return BadRequest("Start time must be lower then end time");
+
+            var vehicle = unitOfWork.Vehicle.Get(rent.Vehicle);
+
+            if (vehicle.Unavailable == true)
+                return BadRequest("Vehicle is in use");
+            else
+                vehicle.Unavailable = true;
+
+            var branch = unitOfWork.Branch.Get(rent.Branch);
+
+            Rent rr = new Rent() { Branch = branch, Vehicle = vehicle, Start = rent.Start, End = rent.End };
+
+            var user = unitOfWork.AppUser.Get(rent.User);
+
+            user.Rents.Add(rr);
+
+            unitOfWork.AppUser.Update(user);
+            unitOfWork.Vehicle.Update(vehicle);
+            unitOfWork.Rent.Add(rr);
             unitOfWork.Complete();
 
-            return CreatedAtRoute("DefaultApi", new { id = rent.Id }, rent);
+            return CreatedAtRoute("DefaultApi", new { id = rr.Id }, rent);
         }
 
         // DELETE: api/Rents/5

@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AddVehicleService } from 'src/app/services/add-vehicle.service';
-
-import { Vehicle } from '../models/Vehicle.model'
-import { TypeOfVehicle } from '../models/TypeOfVehicle.model'
-import { Services } from '../models/Services.model'
-import { error } from 'selenium-webdriver';
-import { debug } from 'util';
+import { HomeRegularService } from '../services/home-regular.service';
+import { Vehicle } from '../models/Vehicle.model';
 
 @Component({
   selector: 'app-vehicle',
@@ -15,51 +9,66 @@ import { debug } from 'util';
 })
 export class VehicleComponent implements OnInit {
 
-  typeOfVehicle: TypeOfVehicle[];
-  services : Services[];
+  vehicles: Vehicle[];
+  public word : string;
 
-  constructor(private addVehicleService : AddVehicleService) { }
+  constructor(private homeRegularService: HomeRegularService) { }
 
   ngOnInit() {
-    this.callGetType();
-    this.callGetServices();
+    this.callGetVehicle();
   }
 
-  callGetType(){
-    this.addVehicleService.getListOfVehicleTypes()
+  callGetVehicle(){
+    this.homeRegularService.getAllVehicles()
     .subscribe(
       data => {
-        this.typeOfVehicle = data;
+        this.vehicles = data;
       },
       error => {
         console.log(error);
       }
     )
+
+    /*this.vehicles = [
+      { TypeOfVehicle : "vechiletype1", Model : "M1", Manufactor : "Man1", Year : 2001, Image : "aaa", Description : "aaaa", PricePerHour : 100, ServerName : "1", Unavailable:false},
+      { TypeOfVehicle : "vechiletype1", Model : "M2", Manufactor : "Man2", Year : 2011, Image : "aaa", Description : "aaaa", PricePerHour : 100, ServerName : "1", Unavailable:false},
+      { TypeOfVehicle : "vechiletype2", Model : "M3", Manufactor : "Man3", Year : 2031, Image : "aaa", Description : "aaaa", PricePerHour : 100, ServerName : "1", Unavailable:true},
+      { TypeOfVehicle : "vechiletype1", Model : "M4", Manufactor : "Man4", Year : 2021, Image : "aaa", Description : "aaaa", PricePerHour : 100, ServerName : "1", Unavailable:false}
+    ];*/
   }
 
-  callGetServices(){
-    this.addVehicleService.getListOfServers()
-    .subscribe(
-      data => {
-        this.services = data;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
-
-  onSubmit(vehicle: Vehicle) {
+  UnavailableVehicle(veh : Vehicle){
+    console.log(veh);
     debugger
-    console.log(vehicle);
-    this.addVehicleService.postVehicle(vehicle)
+    this.homeRegularService.unavailableVehicle(veh)
     .subscribe(
       data=> {
-        alert("You have been successfully add vehicle!");
+        alert("You have been successfully unavailable vehicle!");
       },
     error=>{
       console.log(error);
       alert("Fail !");
     })
+  }
+
+  deleteVehicle(del) {
+    console.log(del);
+    this.homeRegularService.deleteVehicle(del)
+    .subscribe(
+      data=> {
+        alert("You have been successfully delete vehicle!");
+      },
+    error=>{
+      console.log(error);
+      alert("Fail !");
+    })
+  }
+
+  isInRole(r: string){
+    if(localStorage.getItem('role') == r){
+      return true;
+    }
+
+    return false;
   }
 }

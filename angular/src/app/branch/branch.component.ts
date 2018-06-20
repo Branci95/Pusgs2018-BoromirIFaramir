@@ -1,48 +1,81 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AddBranchService } from 'src/app/services/add-branch.service';
-import {FileUploader,FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
- 
-import { Branch } from '../models/Branch.model'
-import { Services } from '../models/Services.model'
-import { error } from 'selenium-webdriver';
-import { debug } from 'util';
- 
-const URL = 'http://localhost:51680/api/Upload/user/PostBranchImage';
- 
+import { HomeRegularService } from '../services/home-regular.service';
+import { Branch } from '../models/Branch.model';
+
+import { MapInfo } from '../models/map-info.model';
+import { Marker } from '../models/marker.model';
+
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css']
 })
 export class BranchComponent implements OnInit {
- 
-  branch: Branch[];
-  public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
-  url: string;
- 
-  constructor(private addBranchService : AddBranchService) {
-    this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false;};
-    this.uploader.onCompleteItem = (item: any, response: any,status: any, headers: any) => {
-        this.url=JSON.parse(response);  
-    };
-  }
- 
-  uploadFile: any;
-  services: Services[];
- 
+
+  braches: Branch[];
+
+  mapInfo: MapInfo;
+  public lat: number = -1;
+  public lgt: number = -1;
+
+  private markers: Marker[] = [];
+  private marker: Marker = new Marker(0,0);
+  private Tempmarker: Marker = new Marker(0,0);
+
+  constructor(private homeRegularService: HomeRegularService) {
+    this.mapInfo = new MapInfo(45.25800424228705, 19.833547029022156, 
+      "assets/ftn.png",
+      "Novi Sad" , "" , "");
+   }
+
   ngOnInit() {
-    this.callGetServices();
+    this.callGetBranch();
   }
- 
-  onSubmit(branch: Branch, form: NgForm) {
-    console.log(branch);
-    branch.Logo=this.url;
-    this.addBranchService.postBranch(branch)
+
+  selectMarker(markerr: Marker){
+    this.braches.forEach(obj => {
+      if(obj.Latitude == markerr.Lat && obj.Longitude == markerr.Lgt){
+        debugger
+      }
+    })
+  }
+  
+  callGetBranch(){
+    this.homeRegularService.getAllBranches()
+    .subscribe(
+      data => {
+        this.braches = data;
+        this.braches.forEach(obj => {
+          this.marker = new Marker(obj.Latitude, obj.Longitude);
+          this.markers.push(this.marker);
+        })
+      },
+      error => {
+        console.log(error);
+      }
+    )
+
+    /*this.braches = [
+      { Address : "braches1", Logo : "aaaa", Latitude : 45.24930344822965, Longitude : 19.833547029022156, ServerName : "1"},
+      { Address : "braches2", Logo : "aaaa", Latitude : 45.244227369427385, Longitude : 19.812089356903016, ServerName : "1"},
+      { Address : "braches3", Logo : "aaaa", Latitude : 45.26464978411942, Longitude : 19.832517060760438, ServerName : "1"},
+      { Address : "braches4", Logo : "aaaa", Latitude : 45.25595000834916, Longitude : 19.868565949920594, ServerName : "1"}
+    ];
+*/
+
+    
+    this.braches.forEach(obj => {
+      this.marker = new Marker(obj.Latitude, obj.Longitude);
+      this.markers.push(this.marker);
+    })
+  }
+
+  deleteBranch(del) {
+    console.log(del);
+    this.homeRegularService.deleteBranch(del)
     .subscribe(
       data=> {
-        alert("You have been successfully add branch!");
-        form.reset();
+        alert("You have been successfully delete branch!");
       },
     error=>{
       console.log(error);
@@ -50,22 +83,11 @@ export class BranchComponent implements OnInit {
     })
   }
 
-  callGetServices(){
-    this.addBranchService.getListOfServers()
-    .subscribe(
-      data => {
-        this.services = data;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
- 
-  handleUpload(data): void{
-    if(data && data.response){
-      data = JSON.parse(data.response);
-      this.uploadFile = data;
+  isInRole(r: string){
+    if(localStorage.getItem('role') == r){
+      return true;
     }
+
+    return false;
   }
 }

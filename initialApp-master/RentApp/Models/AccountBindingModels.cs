@@ -197,4 +197,32 @@ namespace RentApp.Models
         [Display(Name = "ServerName")]
         public string ServerName { get; set; }
     }
+
+    public class RentBindingModel
+    {
+        [Required]
+        [Display(Name = "Start")]
+        [DataType(DataType.DateTime)]
+        public DateTime? Start { get; set; }
+
+        [Required]
+        [Display(Name = "End")]
+        [DataType(DataType.DateTime)]
+        public DateTime? End { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Branch")]
+        public int Branch { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Vehicle")]
+        public int Vehicle { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "User")]
+        public int User { get; set; }
+    }
 }

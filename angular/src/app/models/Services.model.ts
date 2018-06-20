@@ -4,6 +4,7 @@ export class Services{
             public Name: string,
             public Logo: string,
             public Email: string,
-            public Description: string
+            public Description: string,
+            public Approved: boolean
         ){ }
     }

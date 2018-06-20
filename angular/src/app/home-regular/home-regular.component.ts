@@ -27,7 +27,7 @@ export class HomeRegularComponent implements OnInit {
   }
 
   callGetServices(){
-    this.homeRegularService.getAllServices()
+    /*this.homeRegularService.getAllServices()
     .subscribe(
       data => {
         this.services = data;
@@ -35,11 +35,11 @@ export class HomeRegularComponent implements OnInit {
       error => {
         console.log(error);
       }
-    )
+    )*/
   }
 
   callGetBranch(){
-    this.homeRegularService.getAllBranches()
+    /*this.homeRegularService.getAllBranches()
     .subscribe(
       data => {
         this.braches = data;
@@ -47,11 +47,11 @@ export class HomeRegularComponent implements OnInit {
       error => {
         console.log(error);
       }
-    )
+    )*/
   }
 
   callGetVehicle(){
-    this.homeRegularService.getAllVehicles()
+    /*this.homeRegularService.getAllVehicles()
     .subscribe(
       data => {
         this.vehicles = data;
@@ -59,7 +59,7 @@ export class HomeRegularComponent implements OnInit {
       error => {
         console.log(error);
       }
-    )
+    )*/
   }
 
   deleteService(del) {
