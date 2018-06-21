@@ -46,6 +46,36 @@ namespace RentApp.Controllers
             return lista;
         }
 
+        [Authorize(Roles = "Admin, Manager")]
+        [AllowAnonymous]
+        [Route("api/Vehicles/Unavailable")]
+        [HttpGet]
+        public IHttpActionResult Unavailable(int id)
+        {
+            var vehicle = unitOfWork.Vehicle.Get(id);
+            var rents = unitOfWork.Rent.GetAll();
+
+            foreach (var item in rents)
+            {
+                if (item.Vehicle == vehicle)
+                {
+                    if (item.End >= DateTime.Now)
+                        return BadRequest("Vehicle is in use!"); 
+                }
+            }
+
+            if (vehicle.Unavailable == false)
+                vehicle.Unavailable = true;
+            else
+                vehicle.Unavailable = false;
+
+            unitOfWork.Vehicle.Update(vehicle);
+            unitOfWork.Complete();
+
+            return Ok(vehicle);
+        }
+
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [AllowAnonymous]
         [Route("api/Vehicles/SearchVehicle")]
         [HttpGet]
@@ -89,7 +119,8 @@ namespace RentApp.Controllers
 
             return Ok(vehicle);
         }
-        
+
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutVehicle(int id, Vehicle vehicle)
         {
@@ -122,7 +153,8 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        
+
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult PostVehicle(VehicleBindingModel vehicle)
         {
@@ -181,6 +213,7 @@ namespace RentApp.Controllers
         }
 
         // DELETE: api/Vehicles/5
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult DeleteVehicle(int id)
         {

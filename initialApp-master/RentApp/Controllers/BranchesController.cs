@@ -58,7 +58,8 @@ namespace RentApp.Controllers
 
             return Ok(branch);
         }
-        
+
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutBranch(int id, Branch branch)
         {
@@ -91,7 +92,8 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        
+
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult PostBranch(BranchBindingModel branch)
         {
@@ -121,7 +123,8 @@ namespace RentApp.Controllers
             
             return CreatedAtRoute("DefaultApi", new { id = bra.Id }, branch);
         }
-        
+
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult DeleteBranch(int id)
         {

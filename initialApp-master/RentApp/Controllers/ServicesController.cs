@@ -27,6 +27,8 @@ namespace RentApp.Controllers
 
         public IEnumerable<Services> GetServices()
         {
+            Check();
+
             return unitOfWork.Services.GetAll();
         }
 
@@ -43,6 +45,7 @@ namespace RentApp.Controllers
         }
 
         [ResponseType(typeof(void))]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PutService(int id, Services service)
         {
             if (!ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [AllowAnonymous]
         [Route("api/Services/Grade")]
         [HttpGet]
@@ -107,6 +111,7 @@ namespace RentApp.Controllers
             unitOfWork.Complete();
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Services))]
         public IHttpActionResult PostService(Services service)
         {
@@ -131,6 +136,7 @@ namespace RentApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = service.Id }, service);
         }
 
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [HttpPost]
         [Route("UploadImage")]
         public HttpResponseMessage UploadImage()
@@ -154,6 +160,7 @@ namespace RentApp.Controllers
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Services))]
         public IHttpActionResult DeleteService(int id)
         {
@@ -231,6 +238,52 @@ namespace RentApp.Controllers
         private bool ServiceExists(int id)
         {
             return unitOfWork.Services.Get(id) != null;
+        }
+
+        private void Check()
+        {
+            var rents = unitOfWork.Rent.GetAll();
+            var users = unitOfWork.AppUser.GetAll();
+            var vehicles = unitOfWork.Vehicle.GetAll();
+
+            List<Rent> listaRentova = new List<Rent>();
+
+            foreach (var item in rents)
+            {
+                if (item.End <= DateTime.Now)
+                    listaRentova.Add(item);
+            }
+
+            foreach (var item in listaRentova)
+            {
+                foreach (var item2 in users)
+                {
+                    if (item2.Rents.Contains(item))
+                    {
+                        item2.Rents.Remove(item);
+                        unitOfWork.AppUser.Update(item2);
+                    }
+                }
+            }
+
+            foreach (var item in listaRentova)
+            {
+                foreach (var item2 in vehicles)
+                {
+                    if (item.Vehicle == item2)
+                    {
+                        item2.Unavailable = false;
+                        unitOfWork.Vehicle.Update(item2);
+                    }
+                }
+            }
+
+            foreach (var item in listaRentova)
+            {
+                unitOfWork.Rent.Remove(item);
+            }
+
+            unitOfWork.Complete();
         }
     }
 }

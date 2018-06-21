@@ -12,6 +12,7 @@ namespace RentApp.Controllers
     [RoutePrefix("api/Upload")]
     public class UploadController : ApiController
     {
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [Route("user/PostUserImage")]
         [AllowAnonymous]
         public async Task<string> PostUserImage()
@@ -79,7 +80,7 @@ namespace RentApp.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [Route("user/PostBranchImage")]
         [AllowAnonymous]
         public async Task<string> PostBranchImage()
@@ -147,7 +148,7 @@ namespace RentApp.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [Route("user/PostVehicleImage")]
         [AllowAnonymous]
         public async Task<string> PostVehicleImage()

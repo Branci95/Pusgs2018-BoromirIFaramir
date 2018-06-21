@@ -98,9 +98,7 @@ export class VehicleComponent implements OnInit {
     ];*/
   }
 
-  UnavailableVehicle(veh : Vehicle){
-    console.log(veh);
-    debugger
+  UnavailableVehicle(veh){
     this.homeRegularService.unavailableVehicle(veh)
     .subscribe(
       data=> {
@@ -108,7 +106,6 @@ export class VehicleComponent implements OnInit {
       },
     error=>{
       console.log(error);
-      alert("Fail !");
     })
   }
 
