@@ -28,10 +28,12 @@ export class ServiceComponent implements OnInit {
     this.homeRegularService.gradeService(id, this.selected, localStorage.email)
      .subscribe(
         data => {
-          console.log("You have succesfully graded service");
+          alert("You have succesfully graded service");
+          this.callGetServices();
+          //window.location.reload();
         },
         error => {
-          console.log(error);
+          alert(error);
         }
      )
   }
@@ -43,7 +45,7 @@ export class ServiceComponent implements OnInit {
         this.services = data;
       },
       error => {
-        console.log(error);
+        alert(error);
       }
     )
 
@@ -66,9 +68,9 @@ export class ServiceComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully delete service!");
+        this.callGetServices();
       },
     error=>{
-      console.log(error);
       alert("Fail !");
     })
   }

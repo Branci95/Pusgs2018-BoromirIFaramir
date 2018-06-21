@@ -11,7 +11,6 @@ export class VehicleComponent implements OnInit {
 
   vehicles: Vehicle[];
   vehiclesSearch: Vehicle[];
-  public word : string;
   search: string = '';
   selectOptionsU: string = '';
   selected: string = 'Model';
@@ -102,9 +101,10 @@ export class VehicleComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully unavailable vehicle!");
+        this.callGetVehicle();
       },
     error=>{
-      console.log(error);
+      alert(error);
     })
   }
 
@@ -114,6 +114,7 @@ export class VehicleComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully delete vehicle!");
+        this.callGetVehicle();
       },
     error=>{
       console.log(error);

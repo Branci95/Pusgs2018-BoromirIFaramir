@@ -51,7 +51,7 @@ export class BranchComponent implements OnInit {
         })
       },
       error => {
-        console.log(error);
+        alert(error);
       }
     )
 
@@ -76,10 +76,10 @@ export class BranchComponent implements OnInit {
     .subscribe(
       data=> {
         alert("You have been successfully delete branch!");
+        this.callGetBranch();
       },
     error=>{
-      console.log(error);
-      alert("Fail !");
+      alert(error);
     })
   }
 
