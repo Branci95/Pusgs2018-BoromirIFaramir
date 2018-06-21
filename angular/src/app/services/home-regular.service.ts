@@ -5,6 +5,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http/src/headers';
+import { Vehicle } from 'src/app/models/Vehicle.model';
+import { Services } from 'src/app/models/Services.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,12 @@ export class HomeRegularService {
 
     getAllVehicles() : Observable<any>{
       return this.httpClient.get('http://localhost:51680/api/Vehicles');
+    }
+
+    getMethodVehiclePag(pageNumber): Observable<Services[]> {
+      return this.http.get('http://localhost:51680/api/Services?pageIndex='+pageNumber+'&pageSize='+2)
+        .map(this.parseData)
+        .catch(this.handleError);
     }
 
     deleteService(delService) : Observable<any>{

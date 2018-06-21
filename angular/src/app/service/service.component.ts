@@ -3,6 +3,10 @@ import { Services } from '../models/Services.model';
 import { HomeRegularService } from '../services/home-regular.service';
 
 import {Router} from '@angular/router';
+import { LoginServiceService } from 'src/app/services/login-service.service';
+import { error } from 'util';
+import { Users } from 'src/app/models/User.model';
+import { AppUsers } from 'src/app/models/AppUsers.model';
 
 @Component({
   selector: 'app-service',
@@ -13,11 +17,22 @@ export class ServiceComponent implements OnInit {
 
   services: Services[];
   selected: number;
+  user:AppUsers;
 
-  constructor(private homeRegularService: HomeRegularService , private router: Router) { }
+  pageNumber:number = 1;
+
+  constructor(private homeRegularService: HomeRegularService , private router: Router, private loginServiceService: LoginServiceService) { }
 
   ngOnInit() {
-    this.callGetServices();
+    //this.callGetServices();
+    this.homeRegularService.getMethodVehiclePag(this.pageNumber)
+    .subscribe(
+      data => {
+        this.services = data;
+      },
+      error => {
+        alert('fail');
+      })
   }
 
   selectChangeHandler(event: any) {
@@ -59,7 +74,24 @@ export class ServiceComponent implements OnInit {
   }
 
   addRent(id:number){
-    this.router.navigateByUrl('/addrent/' + id);
+    this.loginServiceService.getUserData(localStorage.email)
+    .subscribe(
+      data => {
+        this.user = data;
+        if(this.user.Logo!="" && this.user.Logo!=null){
+          this.router.navigateByUrl('/addrent/' + id);
+        }
+        else{
+          alert("U must have image for rent.")
+          this.router.navigateByUrl('account');
+        }
+      },
+      error=>{
+        console.log(error);
+        alert("Fail !");
+      });
+    
+    
   }
   
   deleteService(del) {
@@ -81,5 +113,22 @@ export class ServiceComponent implements OnInit {
     }
 
     return false;
+  }
+
+  setPageNumber(nm:number){
+    this.pageNumber = nm;
+    this.ngOnInit();
+  }
+
+  incPageNumber(){
+    this.pageNumber += 1;
+    this.ngOnInit();
+  }
+
+  decPageNumber(){
+    if(this.pageNumber > 1){
+      this.pageNumber -= 1;
+      this.ngOnInit();
+    }
   }
 }

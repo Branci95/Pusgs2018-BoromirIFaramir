@@ -47,10 +47,12 @@ export class AddRentComponent implements OnInit {
     .subscribe(
       data => {
         this.braches = data;
-        this.braches.forEach(obj => {
-          this.marker = new Marker(obj.Latitude, obj.Longitude);
-          this.markers.push(this.marker);
-        })
+        if(this.braches!=undefined && this.braches.length > 0){
+          this.braches.forEach(obj => {
+            this.marker = new Marker(obj.Latitude, obj.Longitude);
+            this.markers.push(this.marker);
+          })
+        }
       },
       error => {
         console.log(error);
@@ -62,14 +64,13 @@ export class AddRentComponent implements OnInit {
       data => {
         this.vehicle = []
         this.Tempvehicle = data;
-        debugger
-        this.Tempvehicle.forEach(obj => {
-          debugger
-          if(obj.Unavailable==false){
-            debugger
-            this.vehicle.push(obj);
-          }
-        })
+        if(this.Tempvehicle!=undefined && this.Tempvehicle.length > 0){
+          this.Tempvehicle.forEach(obj => {
+            if(obj.Unavailable==false){
+              this.vehicle.push(obj);
+            }
+          })
+        }
       },
       error => {
         console.log(error);
@@ -77,11 +78,12 @@ export class AddRentComponent implements OnInit {
     )
 
     
-
-    this.braches.forEach(obj => {
-      this.marker = new Marker(obj.Latitude, obj.Longitude);
-      this.markers.push(this.marker);
-    })
+    if(this.braches!=undefined && this.braches.length > 0){
+      this.braches.forEach(obj => {
+        this.marker = new Marker(obj.Latitude, obj.Longitude);
+        this.markers.push(this.marker);
+      })
+    }
   }
 
   /*callGetVehicle(){

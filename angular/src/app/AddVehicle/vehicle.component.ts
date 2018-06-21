@@ -73,12 +73,12 @@ export class AddVehicleComponent implements OnInit {
 
   onSubmit(vehicle: Vehicle) {
     console.log(vehicle);
-    vehicle.Image = this.url;
+    vehicle.Image=this.url;
     this.addVehicleService.postVehicle(vehicle)
     .subscribe(
       data=> {
         alert("You have been successfully add vehicle!");
-        this.router.navigate(['/services']);
+        this.router.navigate(['/vehicle']);
       },
     error=>{
       console.log(error);

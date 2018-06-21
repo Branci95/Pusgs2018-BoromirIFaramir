@@ -108,6 +108,16 @@ namespace RentApp.Controllers
             return lista;
         }
 
+
+        public IEnumerable<Vehicle> GetVehicles(int pageIndex, int pageSize)
+        {
+            var retValue = unitOfWork.Vehicle.GetAll(pageIndex, pageSize);
+
+            return retValue;
+        }
+
+
+
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult GetVehicle(int id)
         {

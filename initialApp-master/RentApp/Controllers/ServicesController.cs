@@ -44,6 +44,13 @@ namespace RentApp.Controllers
             return Ok(service);
         }
 
+        public IEnumerable<Services> GetVehicles(int pageIndex, int pageSize)
+        {
+            var retValue = unitOfWork.Services.GetAll(pageIndex, pageSize);
+
+            return retValue;
+        }
+
         [ResponseType(typeof(void))]
         [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PutService(int id, Services service)
