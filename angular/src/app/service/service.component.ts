@@ -29,7 +29,6 @@ export class ServiceComponent implements OnInit {
     .subscribe(
       data => {
         this.services = data;
-        debugger
       },
       error => {
         alert('fail');

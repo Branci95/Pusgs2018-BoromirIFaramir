@@ -51,6 +51,14 @@ export class HomeRegularService {
         .catch(this.handleError);
     }
 
+    avaliableServer(act, name): Observable<any> {
+      return this.httpClient.get(`http://localhost:51680/api/Services/ActivateService?activate=${act}&name=${name}`);
+    }
+
+    avaliableuser(act, email): Observable<any> {
+      return this.httpClient.get(`http://localhost:51680/api/AppUser/ActivateUser?activate=${act}&email=${email}`);
+    }
+
     deleteService(delService) : Observable<any>{
       return this.httpClient.delete(`http://localhost:51680/api/Services?id=${delService}`);
     }
