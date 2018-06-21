@@ -13,6 +13,7 @@
             <li><a [routerLink]="['/branch']">Branches</a></li>
             <li><a [routerLink]="['/vehicle']">Vehicles</a></li>
             <li><a *ngIf="isInRole('Admin')" [routerLink]="['/addTypeOfVehicle']">Add Type of Vehicles</a></li>
+            <li><a [routerLink]="['/addComment']">Comment</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a *ngIf="!checkIfLogin()" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>

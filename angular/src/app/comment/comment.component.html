@@ -1,0 +1,26 @@
+<legend>Comments</legend>
+
+<div class="form-group">
+  <label class="col-md-1" for="textinput">Service:</label>  
+  <div class="col-md-4">
+    <select class="form-control" name="Services" id="Services" ngModel required #Services="ngModel" (change)="selectSearch($event)">
+        <option *ngFor="let t of services" value="{{t.Name}}">{{t.Name}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+      <textarea [ngModel]="data" (ngModelChange)="doSomething($event)"></textarea>
+  </div>
+  <div class="col-md-1">
+      <button (click)="CommentService()" type="button" class="btn btn-primary">Search</button>
+  </div>
+</div>
+
+<table class="table table-striped table-dark">
+    <tbody *ngFor = "let item of comments">
+        <tr>
+            <td>Service: {{item.Service}}</td>
+            <td>User: {{item.User}}</td>
+            <td>Text: {{item.Text}}</td>
+        </tr>
+    </tbody>
+</table>

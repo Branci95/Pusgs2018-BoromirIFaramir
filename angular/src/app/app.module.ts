@@ -32,6 +32,7 @@ import {CanActivateViaAuthGuard} from './guard/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor';
 import { AddRentComponent } from './add-rent/add-rent.component';
+import { CommentComponent } from './comment/comment.component';
 
 const Routes=[
   {
@@ -97,6 +98,10 @@ const Routes=[
     path: "addrent/:id",
     component: AddRentComponent,
     canActivate: ['CanAppUserActivateGuard']
+  },
+  {
+    path: "addComment",
+    component: CommentComponent
   }
 ]
 
@@ -118,7 +123,8 @@ const Routes=[
     ServiceComponent,
     BranchComponent,
     VehicleComponent,
-    AddRentComponent
+    AddRentComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
