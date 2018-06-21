@@ -3,6 +3,10 @@ import { Services } from '../models/Services.model';
 import { HomeRegularService } from '../services/home-regular.service';
 
 import {Router} from '@angular/router';
+import { LoginServiceService } from 'src/app/services/login-service.service';
+import { error } from 'util';
+import { Users } from 'src/app/models/User.model';
+import { AppUsers } from 'src/app/models/AppUsers.model';
 
 @Component({
   selector: 'app-service',
@@ -13,8 +17,9 @@ export class ServiceComponent implements OnInit {
 
   services: Services[];
   selected: number;
+  user:AppUsers;
 
-  constructor(private homeRegularService: HomeRegularService , private router: Router) { }
+  constructor(private homeRegularService: HomeRegularService , private router: Router, private loginServiceService: LoginServiceService) { }
 
   ngOnInit() {
     this.callGetServices();
@@ -57,7 +62,24 @@ export class ServiceComponent implements OnInit {
   }
 
   addRent(id:number){
-    this.router.navigateByUrl('/addrent/' + id);
+    this.loginServiceService.getUserData(localStorage.email)
+    .subscribe(
+      data => {
+        this.user = data;
+        if(this.user.Logo!="" && this.user.Logo!=null){
+          this.router.navigateByUrl('/addrent/' + id);
+        }
+        else{
+          alert("U must have image for rent.")
+          this.router.navigateByUrl('account');
+        }
+      },
+      error=>{
+        console.log(error);
+        alert("Fail !");
+      });
+    
+    
   }
   
   deleteService(del) {

@@ -82,6 +82,7 @@ export class VehicleComponent implements OnInit {
     this.homeRegularService.getAllVehicles()
     .subscribe(
       data => {
+        debugger
         this.vehicles = data;
       },
       error => {
