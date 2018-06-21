@@ -47,8 +47,9 @@ export class HomeRegularService {
       return this.httpClient.delete(`http://localhost:51680/api/Vehicles?id=${delVehicle}`);
     }
 
-    gradeService(id, grade) : Observable<any>{
-      return this.httpClient.get(`http://localhost:51680/api/Services/Grade?id=${id}&grade=${grade}`);
+    gradeService(id, grade, localStorage) : Observable<any>{
+      debugger
+      return this.httpClient.get(`http://localhost:51680/api/Services/Grade?id=${id}&grade=${grade}&user=${localStorage}`);
     }
 
     unavailableVehicle(unaVehicle) : Observable<any>{                       //videti za ovo sta bi trebalo

@@ -101,7 +101,8 @@ const Routes=[
   },
   {
     path: "addComment",
-    component: CommentComponent
+    component: CommentComponent,
+    canActivate: ['CanAppUserActivateGuard']
   }
 ]
 

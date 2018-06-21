@@ -78,9 +78,18 @@ namespace RentApp.Controllers
         [AllowAnonymous]
         [Route("api/Services/Grade")]
         [HttpGet]
-        public void Grade(int id, int grade)
+        public void Grade(int id, int grade, string user)
         {
             var service = unitOfWork.Services.Get(id);
+
+            if (service.UsersGrade == null)
+                service.UsersGrade = new List<string>();
+
+            foreach (var item in service.UsersGrade)
+            {
+                if (item == user)
+                    return;
+            }
 
             double ocena = service.Grade;
 
@@ -92,6 +101,7 @@ namespace RentApp.Controllers
                 ocena /= 2;
 
             service.Grade = ocena;
+            service.UsersGrade.Add(user);
 
             unitOfWork.Services.Update(service);
             unitOfWork.Complete();
@@ -113,7 +123,7 @@ namespace RentApp.Controllers
                     return BadRequest("Already is service with this name: " + service.Name);
             }
 
-            Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>() };
+            Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>(), Grade = 0, UsersGrade = new List<string>() };
             
             unitOfWork.Services.Add(ser);
             unitOfWork.Complete();

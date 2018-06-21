@@ -44,7 +44,8 @@ export class CommentComponent implements OnInit {
   }
 
   CommentService() {
-    let commentttt = { Service : this.optSearch, User : "Dulo", Text : this.selectOptionsU };
+    debugger
+    let commentttt = { Service : this.optSearch, User : localStorage.email, Text : this.selectOptionsU };
     this.comments.push(commentttt);
   }
 }

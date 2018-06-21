@@ -19,9 +19,9 @@
             <td>Description: {{item.Description}}</td>
             <td>Email: {{item.Email}}</td>
             <td>Grade: {{item.Grade}}</td>
-            <td><button (click)="addRent(item.Id)" type="button" class="btn btn-danger">Rent Vehicle</button></td>
+            <td><button (click)="addRent(item.Id)" *ngIf="isInRole('Manager') || isInRole('Admin') || isInRole('AppUser')" type="button" class="btn btn-danger">Rent Vehicle</button></td>
             <td><button *ngIf="isInRole('Manager') || isInRole('Admin')" (click)="deleteService(item.Id)" type="button" class="btn btn-danger">Delete Service</button></td>
-            <td>
+            <td *ngIf="isInRole('Manager') || isInRole('Admin') || isInRole('AppUser')">
                 <select class="form-control" (change)="selectChangeHandler($event)">
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
@@ -30,7 +30,7 @@
                     <option value="5">5</option>
                 </select> 
             </td>
-            <td><button (click)="gradeService(item.Id)" type="button" class="btn btn-primary">Grade Service</button></td>
+            <td><button *ngIf="isInRole('Manager') || isInRole('Admin') || isInRole('AppUser')" (click)="gradeService(item.Id)" type="button" class="btn btn-primary">Grade Service</button></td>
         </tr>
     </tbody>
 </table>

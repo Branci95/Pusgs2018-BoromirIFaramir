@@ -25,7 +25,7 @@ export class ServiceComponent implements OnInit {
   }
 
   gradeService(id){
-    this.homeRegularService.gradeService(id, this.selected)
+    this.homeRegularService.gradeService(id, this.selected, localStorage.email)
      .subscribe(
         data => {
           console.log("You have succesfully graded service");
