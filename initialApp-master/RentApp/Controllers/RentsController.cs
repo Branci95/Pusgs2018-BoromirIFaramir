@@ -82,8 +82,10 @@ namespace RentApp.Controllers
                 return BadRequest(ModelState);
             }
 
-
             var vehicle = unitOfWork.Vehicle.Get(rent.Vehicle);
+
+            if (rent.End <= DateTime.Now)
+                return BadRequest("End time is lower then start time");
 
             if (vehicle.Unavailable == true)
                 return BadRequest("Vehicle is in use");
