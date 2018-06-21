@@ -45,10 +45,12 @@ export class BranchComponent implements OnInit {
     .subscribe(
       data => {
         this.braches = data;
-        this.braches.forEach(obj => {
-          this.marker = new Marker(obj.Latitude, obj.Longitude);
-          this.markers.push(this.marker);
-        })
+        if(this.braches.length > 0){
+          this.braches.forEach(obj => {
+            this.marker = new Marker(obj.Latitude, obj.Longitude);
+            this.markers.push(this.marker);
+          })
+        }
       },
       error => {
         console.log(error);
@@ -64,10 +66,10 @@ export class BranchComponent implements OnInit {
 */
 
     
-    this.braches.forEach(obj => {
+    /*this.braches.forEach(obj => {
       this.marker = new Marker(obj.Latitude, obj.Longitude);
       this.markers.push(this.marker);
-    })
+    })*/
   }
 
   deleteBranch(del) {

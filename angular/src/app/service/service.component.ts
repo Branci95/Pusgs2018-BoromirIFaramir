@@ -19,10 +19,20 @@ export class ServiceComponent implements OnInit {
   selected: number;
   user:AppUsers;
 
+  pageNumber:number = 1;
+
   constructor(private homeRegularService: HomeRegularService , private router: Router, private loginServiceService: LoginServiceService) { }
 
   ngOnInit() {
-    this.callGetServices();
+    //this.callGetServices();
+    this.homeRegularService.getMethodVehiclePag(this.pageNumber)
+    .subscribe(
+      data => {
+        this.services = data;
+      },
+      error => {
+        alert('fail');
+      })
   }
 
   selectChangeHandler(event: any) {
@@ -101,5 +111,22 @@ export class ServiceComponent implements OnInit {
     }
 
     return false;
+  }
+
+  setPageNumber(nm:number){
+    this.pageNumber = nm;
+    this.ngOnInit();
+  }
+
+  incPageNumber(){
+    this.pageNumber += 1;
+    this.ngOnInit();
+  }
+
+  decPageNumber(){
+    if(this.pageNumber > 1){
+      this.pageNumber -= 1;
+      this.ngOnInit();
+    }
   }
 }

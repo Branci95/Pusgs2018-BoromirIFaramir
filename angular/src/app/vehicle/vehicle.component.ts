@@ -18,10 +18,12 @@ export class VehicleComponent implements OnInit {
   options: string = 'Filter';
   optSearch: string = 'Model';
 
+  
+
   constructor(private homeRegularService: HomeRegularService) { }
 
   ngOnInit() {
-    this.callGetVehicle();
+    this.callGetVehicle(); 
   }
 
   selectChangeHandler(event: any) {
@@ -82,7 +84,6 @@ export class VehicleComponent implements OnInit {
     this.homeRegularService.getAllVehicles()
     .subscribe(
       data => {
-        debugger
         this.vehicles = data;
       },
       error => {
