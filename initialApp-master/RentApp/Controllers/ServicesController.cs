@@ -114,7 +114,7 @@ namespace RentApp.Controllers
             }
 
             Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>() };
-
+            
             unitOfWork.Services.Add(ser);
             unitOfWork.Complete();
 

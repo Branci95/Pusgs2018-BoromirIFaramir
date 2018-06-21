@@ -320,6 +320,10 @@
     <Compile Include="Migrations\201806201541343_DodaoOcenu.Designer.cs">
       <DependentUpon>201806201541343_DodaoOcenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806211057564_listaKorisnika.cs" />
+    <Compile Include="Migrations\201806211057564_listaKorisnika.Designer.cs">
+      <DependentUpon>201806211057564_listaKorisnika.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -455,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806201541343_DodaoOcenu.resx">
       <DependentUpon>201806201541343_DodaoOcenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806211057564_listaKorisnika.resx">
+      <DependentUpon>201806211057564_listaKorisnika.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
