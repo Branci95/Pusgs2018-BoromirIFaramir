@@ -41,14 +41,101 @@ namespace RentApp.Controllers
                 return NotFound();
             }
 
+            if(service.Available == false)
+            {
+                return NotFound();
+            }
+
             return Ok(service);
         }
+        [Route("api/Services/GetServiceUnAva")]
+        [HttpGet]
+        public IEnumerable<Services> GetServiceUnAva()
+        {
+            var retValue = unitOfWork.Services.GetAll();
+            List<Services> TempreturnValue = new List<Services>();
+            
+            foreach (var item in retValue)
+            {
+                if (item.Available == false)
+                {
+                    TempreturnValue.Add(item);
+                }
+            }
 
-        public IEnumerable<Services> GetVehicles(int pageIndex, int pageSize)
+            return TempreturnValue as IEnumerable<Services>;
+        }
+
+        public IEnumerable<Services> GetService(int pageIndex, int pageSize)
         {
             var retValue = unitOfWork.Services.GetAll(pageIndex, pageSize);
 
-            return retValue;
+            List<Services> TempretAv = new List<Services>();
+
+            List<Services> TempreturnValue = new List<Services>();
+
+            TempretAv = retValue as List<Services>;
+
+            foreach (var item in TempretAv)
+            {
+                if(item.Available == true)
+                {
+                    TempreturnValue.Add(item);
+                }
+            }
+
+            return TempreturnValue as IEnumerable<Services>;
+        }
+
+        [Route("api/Services/ActivateService")]
+        [HttpGet]
+        public IHttpActionResult ActivateService(int activate, string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (activate==1)
+            {
+                var retValue = unitOfWork.Services.GetAll();
+
+                List<Services> services = new List<Services>();
+
+                services = retValue as List<Services>;
+
+                foreach (var item in services)
+                {
+                    if(item.Name == name)
+                    {
+                        item.Available = true;
+
+                        SendMailToManager(item.Owner, true);
+
+                        unitOfWork.Services.Update(item);
+
+                        break;
+                    }
+                }
+            }
+
+            unitOfWork.Complete();
+
+            return Ok();
+        }
+
+        public void SendMailToManager(string email, bool activated)
+        {
+            if (activated == true)
+            {
+                //send positive mail to email adress
+
+            }
+            else
+            {
+                //send negative mail to email adress
+
+            }
         }
 
         [ResponseType(typeof(void))]
@@ -86,7 +173,6 @@ namespace RentApp.Controllers
         }
 
         [Authorize(Roles = "Admin, Manager, AppUser")]
-        [AllowAnonymous]
         [Route("api/Services/Grade")]
         [HttpGet]
         public void Grade(int id, int grade, string user)
@@ -135,7 +221,7 @@ namespace RentApp.Controllers
                     return BadRequest("Already is service with this name: " + service.Name);
             }
 
-            Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>(), Grade = 0, UsersGrade = new List<string>() };
+            Services ser = new Services() { Name = service.Name, Email = service.Email, Logo = service.Logo, Owner = service.Owner, Available = false, Description = service.Description, Branches = new List<Branch>(), Vehicles = new List<Vehicle>(), Grade = 0, UsersGrade = new List<string>() };
             
             unitOfWork.Services.Add(ser);
             unitOfWork.Complete();

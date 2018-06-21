@@ -29,6 +29,14 @@ export class HomeRegularService {
       return this.httpClient.get('http://localhost:51680/api/Services');
     }
 
+    getAllServicesUna() : Observable<any>{
+      return this.httpClient.get('http://localhost:51680/api/Services/GetServiceUnAva');
+    }
+
+    getAllUsersUna() : Observable<any>{
+      return this.httpClient.get('http://localhost:51680/api/AppUser/GetAppUserUnAva');
+    }
+
     getAllBranches() : Observable<any>{
       return this.httpClient.get('http://localhost:51680/api/Branches');
     }

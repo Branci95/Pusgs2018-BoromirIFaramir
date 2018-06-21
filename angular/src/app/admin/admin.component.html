@@ -1,0 +1,12 @@
+<table class="table table-striped table-dark" >
+  <tbody *ngFor = "let item of services">
+      <tr>
+          <td style="width: 250px;"><img width="200" src='{{item.Logo}}' />Slika</td>
+          <td>Name: {{item.Name}}</td>
+          <td>Description: {{item.Description}}</td>
+          <td>Email: {{item.Email}}</td>
+          <td><button  type="button" class="btn btn-danger">Rent Vehicle</button></td>
+          <td><button type="button" class="btn btn-danger">Delete Service</button></td>
+      </tr>
+  </tbody>
+</table>

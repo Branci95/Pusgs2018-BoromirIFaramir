@@ -23,9 +23,94 @@ namespace RentApp.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+        [Route("api/AppUser/GetAppUserUnAva")]
+        [HttpGet]
+        public IEnumerable<AppUser> GetAppUserUnAva()
+        {
+            var retValue = unitOfWork.AppUser.GetAll();
+            List<AppUser> TempreturnValue = new List<AppUser>();
+
+            foreach (var item in retValue)
+            {
+                if (item.Activated == false)
+                {
+                    TempreturnValue.Add(item);
+                }
+            }
+
+            return TempreturnValue as IEnumerable<AppUser>;
+        }
+
+        [Route("api/AppUser/ActivateUser")]
+        [HttpGet]
+        public IHttpActionResult ActivateUser(int activate, string email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (activate == 1)
+            {
+                var retValue = unitOfWork.AppUser.GetAll();
+
+                List<AppUser> users = new List<AppUser>();
+
+                users = retValue as List<AppUser>;
+
+                foreach (var item in users)
+                {
+                    if (item.Email == email)
+                    {
+                        item.Activated = true;
+
+                        SendMailToUser(email, true);
+
+                        unitOfWork.AppUser.Update(item);
+
+                        break;
+                    }
+                }
+            }
+
+            unitOfWork.Complete();
+
+            return Ok();
+        }
+
+        public void SendMailToUser(string email, bool activated)
+        {
+            if(activated == true)
+            {
+                //send positive mail to email adress
+
+            }
+            else
+            {
+                //send negative mail to email adress
+
+            }
+        }
+
         public IEnumerable<AppUser> GetAppUsers()
         {
-            return unitOfWork.AppUser.GetAll();
+            var retValue = unitOfWork.AppUser.GetAll();
+
+            List<AppUser> TempretAv = new List<AppUser>();
+
+            List<AppUser> TempreturnValue = new List<AppUser>();
+
+            TempretAv = retValue as List<AppUser>;
+
+            foreach (var item in TempretAv)
+            {
+                if (item.Activated == false)
+                {
+                    TempreturnValue.Add(item);
+                }
+            }
+
+            return TempreturnValue as IEnumerable<AppUser>;
         }
 
         [ResponseType(typeof(AppUser))]

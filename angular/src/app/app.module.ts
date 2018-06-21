@@ -33,6 +33,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor';
 import { AddRentComponent } from './add-rent/add-rent.component';
 import { CommentComponent } from './comment/comment.component';
+import { AdminComponent } from './admin/admin.component';
 
 const Routes=[
   {
@@ -103,6 +104,11 @@ const Routes=[
     path: "addComment",
     component: CommentComponent,
     canActivate: ['CanAppUserActivateGuard']
+  },
+  {
+    path: "Adminova",
+    component: AdminComponent,
+    canActivate: ['CanAppUserActivateGuard']
   }
 ]
 
@@ -125,7 +131,8 @@ const Routes=[
     BranchComponent,
     VehicleComponent,
     AddRentComponent,
-    CommentComponent
+    CommentComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -145,6 +152,12 @@ const Routes=[
     {
       provide: 'CanAlwaysActivateGuard',
       useValue: () => { 
+        return true;
+      } 
+    },
+    {
+      provide: 'CanAdminGuard',
+      useValue: () => { if(localStorage.role == 'Admin')
         return true;
       } 
     },
