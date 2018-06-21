@@ -55,4 +55,8 @@ export class HomeRegularService {
       debugger
       return// this.httpClient.post(`http://localhost:51680/api/Vehicles?id=${unaVehicle}`);
     }
+
+    searchVehicle(name, option) : Observable<any>{
+      return this.httpClient.get(`http://localhost:51680/api/Vehicles/SearchVehicle?name=${name}&opt=${option}`);
+    }
 }

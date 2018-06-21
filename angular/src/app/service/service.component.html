@@ -19,10 +19,6 @@
             <td>Description: {{item.Description}}</td>
             <td>Email: {{item.Email}}</td>
             <td>Grade: {{item.Grade}}</td>
-
-
-
-            
             <td><button (click)="addRent(item.Id)" type="button" class="btn btn-danger">Rent Vehicle</button></td>
             <td><button *ngIf="isInRole('Manager') || isInRole('Admin')" (click)="deleteService(item.Id)" type="button" class="btn btn-danger">Delete Service</button></td>
             <td>

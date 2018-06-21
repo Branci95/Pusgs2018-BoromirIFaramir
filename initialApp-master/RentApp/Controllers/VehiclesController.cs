@@ -46,6 +46,38 @@ namespace RentApp.Controllers
             return lista;
         }
 
+        [AllowAnonymous]
+        [Route("api/Vehicles/SearchVehicle")]
+        [HttpGet]
+        public List<Vehicle> SearchVehicle(string name, string opt)
+        {
+            var vehicles = unitOfWork.Vehicle.GetAll();
+            List<Vehicle> lista = new List<Vehicle>();
+            int number = 0;
+
+            if (opt == "Price")
+                number = Convert.ToInt32(name);
+
+            foreach (var item in vehicles)
+            {
+                if (item.Unavailable == true)
+                    continue;
+
+                if (opt == "Model")
+                {
+                    if (item.Model == name)
+                        lista.Add(item);
+                }
+                else if (opt == "Price")
+                {
+                    if (item.PricePerHour >= number)
+                        lista.Add(item);
+                }
+            }
+
+            return lista;
+        }
+
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult GetVehicle(int id)
         {

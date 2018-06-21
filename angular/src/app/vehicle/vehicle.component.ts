@@ -13,7 +13,10 @@ export class VehicleComponent implements OnInit {
   vehiclesSearch: Vehicle[];
   public word : string;
   search: string = '';
-  selected: string = '';
+  selectOptionsU: string = '';
+  selected: string = 'Model';
+  options: string = 'Filter';
+  optSearch: string = 'Model';
 
   constructor(private homeRegularService: HomeRegularService) { }
 
@@ -23,6 +26,14 @@ export class VehicleComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selected = event.target.value;
+  }
+
+  selectOptions(event: any) {
+    this.options = event.target.value;
+  }
+
+  selectSearch(event: any) {
+    this.optSearch = event.target.value;
   }
 
   doSomething(event: any) {
@@ -47,8 +58,24 @@ export class VehicleComponent implements OnInit {
           this.vehiclesSearch.push(obj);
         }
       }
-
     });
+  }
+
+  doSomething2(event: any) {
+    this.selectOptionsU = event;
+  }
+
+  SearchVehicle() {
+    this.vehiclesSearch = [];
+    this.homeRegularService.searchVehicle(this.selectOptionsU, this.optSearch)
+    .subscribe(
+      data => {
+        this.vehiclesSearch = data;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   callGetVehicle(){
