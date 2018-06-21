@@ -13,6 +13,7 @@ using RentApp.Persistance;
 using RentApp.Persistance.UnitOfWork;
 using System.Web;
 using System.IO;
+using System.Net.Mail;
 
 namespace RentApp.Controllers
 {
@@ -128,13 +129,51 @@ namespace RentApp.Controllers
         {
             if (activated == true)
             {
-                //send positive mail to email adress
+                /*send positive mail to email adress
+                MailMessage mail = new MailMessage("foksfak@gmail.com", email);
+                SmtpClient client = new SmtpClient();
+                client.Port = 587;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("foksfak@gmail.com", "nadvoznjak");
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                mail.From = new MailAddress("foksfak@gmail.com");
+                mail.To.Add("foksfak@gmail.com");
+                mail.Subject = "Service approved";
+                mail.Body = "Congratulation";
+                try
+                {
+                    client.Send(mail);
+                }
+                catch
+                {
 
+                }*/
             }
             else
             {
-                //send negative mail to email adress
+                /*send negative mail to email adress
+                MailMessage mail = new MailMessage("foksfak@gmail.com", email);
+                SmtpClient client = new SmtpClient();
+                client.Port = 587;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("foksfak@gmail.com", "nadvoznjak");
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                mail.From = new MailAddress("foksfak@gmail.com");
+                mail.To.Add("foksfak@gmail.com");
+                mail.Subject = "Service not approved";
+                mail.Body = "Im so sorry";
+                try
+                {
+                    client.Send(mail);
+                }
+                catch
+                {
 
+                }*/
             }
         }
 

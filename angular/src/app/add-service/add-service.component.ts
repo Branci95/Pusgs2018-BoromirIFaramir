@@ -37,6 +37,8 @@ export class AddServiceComponent implements OnInit {
   onSubmit(service: Services, form: NgForm) {
     console.log(service);
     service.Logo=this.url;
+    service.Owner = localStorage.email;
+    debugger
     this.addServiceService.postService(service)
     .subscribe(
       data=> {

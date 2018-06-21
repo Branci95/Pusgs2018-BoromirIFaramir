@@ -5,6 +5,7 @@ export class Services{
             public Logo: string,
             public Email: string,
             public Description: string,
+            public Owner: string,
             public Approved: boolean
         ){ }
     }
