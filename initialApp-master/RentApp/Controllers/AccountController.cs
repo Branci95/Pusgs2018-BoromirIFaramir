@@ -18,6 +18,7 @@ using RentApp.Models.Entities;
 using RentApp.Providers;
 using RentApp.Results;
 using RentApp.Persistance.UnitOfWork;
+using RentApp.Hubs;
 
 namespace RentApp.Controllers
 {
@@ -391,6 +392,8 @@ namespace RentApp.Controllers
             }
 
             UserManager.AddToRole(user.Id, "AppUser");
+
+            NotificationsHub.NotifyAdmin("New user added!");
 
             return Ok();
         }

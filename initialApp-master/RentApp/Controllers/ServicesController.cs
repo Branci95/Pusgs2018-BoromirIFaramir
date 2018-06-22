@@ -14,6 +14,7 @@ using RentApp.Persistance.UnitOfWork;
 using System.Web;
 using System.IO;
 using System.Net.Mail;
+using RentApp.Hubs;
 
 namespace RentApp.Controllers
 {
@@ -264,6 +265,8 @@ namespace RentApp.Controllers
             
             unitOfWork.Services.Add(ser);
             unitOfWork.Complete();
+
+            NotificationsHub.NotifyAdmin("New service added and requires aproval!");
 
             return CreatedAtRoute("DefaultApi", new { id = service.Id }, service);
         }

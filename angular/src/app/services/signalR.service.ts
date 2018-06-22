@@ -15,17 +15,17 @@ export class SignalRService {
     private proxyName: string = 'notifications';  
     private connection: any;  
     // create the Event Emitter  
-    public messageReceived: EventEmitter < GetClockTime > ;  
+    public messageReceived: EventEmitter < string > ;  
     public connectionEstablished: EventEmitter < Boolean > ;  
     public connectionExists: Boolean;  
     constructor() {  
         debugger;  
         // Constructor initialization  
         this.connectionEstablished = new EventEmitter < Boolean > ();  
-        this.messageReceived = new EventEmitter < GetClockTime > ();  
+        this.messageReceived = new EventEmitter < string > ();  
         this.connectionExists = false;  
         // create hub connection  
-        this.connection = $.hubConnection("http://localhost:/51680/");  
+        this.connection = $.hubConnection("http://localhost:51680");
         // create new proxy as name already given in top  
         this.proxy = this.connection.createHubProxy(this.proxyName);  
         // register on server events  
@@ -34,9 +34,9 @@ export class SignalRService {
         this.startConnection();  
     }  
     // method to hit from client  
-    public sendTime() {  
+    public sendHello() {  
         // server side hub method using proxy.invoke with method name pass as param  
-        this.proxy.invoke('GetRealTime');  
+        this.proxy.invoke('Hello');  
     }  
     // check in the browser console for either signalr connected or not  
     private startConnection(): void {  
@@ -51,9 +51,9 @@ export class SignalRService {
     }  
     private registerOnServerEvents(): void {  
         debugger;  
-        this.proxy.on('setRealTime', (data: GetClockTime) => {  
-            console.log('received in SignalRService: ' + JSON.stringify(data));  
+        this.proxy.on('notify', (data: string) => {  
+            console.log('received in SignalRService: ' + data);  
             this.messageReceived.emit(data);  
         });  
     }  
-}  
+  } 

@@ -13,10 +13,9 @@ namespace RentApp.Hubs
     {
         private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationsHub>();
         //private static Timer t = new Timer();
-        
-        public void Hello()
+        public static void Hello()
         {
-            hubContext.Clients.All.hello("Hello from server!");
+            hubContext.Clients.All.hello();
         }
 
         public void GetRealTime()
@@ -24,9 +23,9 @@ namespace RentApp.Hubs
             Clients.All.setRealTime(DateTime.Now.ToString("h:mm:ss tt"));
         }
 
-        public void TimeServerUpdates()
+        public static void NotifyAdmin(string message)
         {
-            
+            hubContext.Clients.All.notify(message);
         }
     }
 }
